@@ -1,40 +1,67 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { Send, Mail, MapPin, Phone } from 'lucide-react';
+import { Send, Mail, MapPin, Phone, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 const contactInfo = [
   {
     icon: Mail,
     label: 'Email Us',
-    value: 'hello@orachitech.com',
+    value: 'info@orachitech.com',
   },
   {
     icon: Phone,
     label: 'Call Us',
-    value: '+1 (555) 123-4567',
+    value: '+92 323 359 3780',
   },
   {
     icon: MapPin,
     label: 'Visit Us',
-    value: '123 Tech Street, Silicon Valley, CA',
+    value: 'Karachi, Pakistan',
   },
 ];
 
 const ContactSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: '',
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log('Form submitted:', formData);
+    setIsSubmitting(true);
+
+    try {
+      const { error } = await supabase.functions.invoke('send-contact-email', {
+        body: formData,
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: 'Message Sent!',
+        description: 'Thank you for contacting us. We will get back to you soon.',
+      });
+
+      setFormData({ name: '', email: '', message: '' });
+    } catch (error) {
+      console.error('Error sending message:', error);
+      toast({
+        title: 'Error',
+        description: 'Failed to send message. Please try again.',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -132,9 +159,18 @@ const ContactSection = () => {
                 />
               </div>
 
-              <Button variant="hero" size="lg" type="submit" className="w-full group">
-                Send Message
-                <Send className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              <Button variant="hero" size="lg" type="submit" className="w-full group" disabled={isSubmitting}>
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    Send Message
+                    <Send className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  </>
+                )}
               </Button>
             </form>
           </motion.div>
@@ -166,21 +202,23 @@ const ContactSection = () => {
               </motion.div>
             ))}
 
-            {/* Map placeholder */}
+            {/* Map */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.6 }}
               className="glass-card rounded-2xl overflow-hidden h-[200px] relative"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-teal-dark/10 flex items-center justify-center">
-                <div className="text-center">
-                  <MapPin className="w-8 h-8 text-primary mx-auto mb-2" />
-                  <p className="text-sm text-muted-foreground">
-                    Find us on the map
-                  </p>
-                </div>
-              </div>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d462118.0247422953!2d66.88306699999999!3d24.8607343!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33e06651d4bbf%3A0x9cf92f44555a0c23!2sKarachi%2C%20Karachi%20City%2C%20Sindh%2C%20Pakistan!5e0!3m2!1sen!2s!4v1704985000000!5m2!1sen!2s"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Orachi Tech Location"
+              />
             </motion.div>
           </motion.div>
         </div>
