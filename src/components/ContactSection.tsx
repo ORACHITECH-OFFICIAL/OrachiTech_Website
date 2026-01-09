@@ -78,12 +78,12 @@ const ContactSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-primary font-medium text-sm uppercase tracking-wider">
+          <span className="text-primary font-medium text-sm uppercase tracking-wider animated-text">
             Get In Touch
           </span>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">
             Let's Build Something{' '}
-            <span className="gradient-text">Amazing</span>
+            <span className="shimmer-text">Amazing</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Ready to start your project? We'd love to hear from you. Get in touch

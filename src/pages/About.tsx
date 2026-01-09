@@ -50,7 +50,7 @@ const About = () => {
       {/* Hero Section */}
       <section className="pt-32 pb-16 relative overflow-hidden">
         <div className="absolute inset-0 hexagon-pattern opacity-5" />
-        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
         
         <div className="container mx-auto px-4 relative z-10">
           <motion.div
@@ -59,11 +59,11 @@ const About = () => {
             transition={{ duration: 0.6 }}
             className="text-center max-w-3xl mx-auto"
           >
-            <span className="text-teal-400 text-sm font-semibold tracking-wider uppercase mb-4 block">
+            <span className="text-primary text-sm font-semibold tracking-wider uppercase mb-4 block animated-text">
               About Us
             </span>
             <h1 className="text-4xl md:text-6xl font-display font-bold text-foreground mb-6">
-              Building the <span className="gradient-text">Future of Tech</span>
+              Building the <span className="shimmer-text">Future of Tech</span>
             </h1>
             <p className="text-muted-foreground text-lg">
               We are a team of passionate technologists dedicated to delivering innovative solutions that drive business growth.
@@ -82,8 +82,8 @@ const About = () => {
               transition={{ duration: 0.6 }}
               className="glass-card p-8"
             >
-              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center mb-6">
-                <Target className="w-7 h-7 text-white" />
+              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-6">
+                <Target className="w-7 h-7 text-primary-foreground" />
               </div>
               <h3 className="text-2xl font-semibold text-foreground mb-4">Our Mission</h3>
               <p className="text-muted-foreground">
@@ -97,8 +97,8 @@ const About = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="glass-card p-8"
             >
-              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center mb-6">
-                <Eye className="w-7 h-7 text-white" />
+              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-6">
+                <Eye className="w-7 h-7 text-primary-foreground" />
               </div>
               <h3 className="text-2xl font-semibold text-foreground mb-4">Our Vision</h3>
               <p className="text-muted-foreground">
@@ -120,7 +120,7 @@ const About = () => {
             className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-4">
-              Our Core <span className="gradient-text">Values</span>
+              Our Core <span className="shimmer-text">Values</span>
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               The principles that guide everything we do
@@ -135,10 +135,10 @@ const About = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="glass-card p-6 text-center hover:border-teal-500/50 transition-all duration-300"
+                className="tech-card glass-card p-6 text-center hover:border-primary/50 transition-all duration-300"
               >
-                <div className="w-12 h-12 rounded-xl bg-teal-500/20 flex items-center justify-center mx-auto mb-4">
-                  <value.icon className="w-6 h-6 text-teal-400" />
+                <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center mx-auto mb-4">
+                  <value.icon className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="text-lg font-semibold text-foreground mb-2">{value.title}</h3>
                 <p className="text-muted-foreground text-sm">{value.description}</p>
@@ -159,7 +159,7 @@ const About = () => {
             className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-4">
-              Our <span className="gradient-text">Journey</span>
+              Our <span className="shimmer-text">Journey</span>
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Key milestones that shaped who we are today
@@ -167,7 +167,7 @@ const About = () => {
           </motion.div>
 
           <div className="relative">
-            <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-teal-500 to-teal-600 hidden md:block" />
+            <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-primary to-accent hidden md:block" />
             
             <div className="space-y-8">
               {milestones.map((milestone, index) => (
@@ -181,12 +181,12 @@ const About = () => {
                 >
                   <div className={`flex-1 ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
                     <div className="glass-card p-6 inline-block">
-                      <span className="text-teal-400 font-bold text-lg">{milestone.year}</span>
+                      <span className="text-primary font-bold text-lg">{milestone.year}</span>
                       <h3 className="text-foreground font-semibold text-lg mb-2">{milestone.title}</h3>
                       <p className="text-muted-foreground text-sm">{milestone.description}</p>
                     </div>
                   </div>
-                  <div className="hidden md:flex w-4 h-4 rounded-full bg-teal-500 border-4 border-dark-800 z-10" />
+                  <div className="hidden md:flex w-4 h-4 rounded-full bg-primary border-4 border-background z-10" />
                   <div className="flex-1 hidden md:block" />
                 </motion.div>
               ))}
@@ -214,7 +214,7 @@ const About = () => {
                   viewport={{ once: true }}
                   className="text-center"
                 >
-                  <stat.icon className="w-8 h-8 text-teal-400 mx-auto mb-3" />
+                  <stat.icon className="w-8 h-8 text-primary mx-auto mb-3" />
                   <div className="text-3xl font-bold gradient-text mb-1">{stat.value}</div>
                   <div className="text-muted-foreground text-sm">{stat.label}</div>
                 </motion.div>

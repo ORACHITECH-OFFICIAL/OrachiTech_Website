@@ -92,7 +92,7 @@ const Services = () => {
       {/* Hero Section */}
       <section className="pt-32 pb-16 relative overflow-hidden">
         <div className="absolute inset-0 hexagon-pattern opacity-5" />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
         
         <div className="container mx-auto px-4 relative z-10">
           <motion.div
@@ -101,11 +101,11 @@ const Services = () => {
             transition={{ duration: 0.6 }}
             className="text-center max-w-3xl mx-auto"
           >
-            <span className="text-teal-400 text-sm font-semibold tracking-wider uppercase mb-4 block">
+            <span className="text-primary text-sm font-semibold tracking-wider uppercase mb-4 block animated-text">
               Our Services
             </span>
             <h1 className="text-4xl md:text-6xl font-display font-bold text-foreground mb-6">
-              Comprehensive <span className="gradient-text">Tech Solutions</span>
+              Comprehensive <span className="shimmer-text">Tech Solutions</span>
             </h1>
             <p className="text-muted-foreground text-lg">
               From concept to deployment, we offer end-to-end technology services to help your business thrive in the digital age.
@@ -124,17 +124,17 @@ const Services = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="glass-card p-8 hover:border-teal-500/50 transition-all duration-300 group"
+                className="tech-card glass-card p-8 hover:border-primary/50 transition-all duration-300 group"
               >
-                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <service.icon className="w-7 h-7 text-white" />
+                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <service.icon className="w-7 h-7 text-primary-foreground" />
                 </div>
                 <h3 className="text-xl font-semibold text-foreground mb-3">{service.title}</h3>
                 <p className="text-muted-foreground mb-4">{service.description}</p>
                 <ul className="space-y-2">
                   {service.features.map((feature) => (
                     <li key={feature} className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <div className="w-1.5 h-1.5 rounded-full bg-teal-400" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary" />
                       {feature}
                     </li>
                   ))}
@@ -163,7 +163,7 @@ const Services = () => {
             </p>
             <a
               href="/#contact"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-teal-500 to-teal-600 text-white font-semibold rounded-xl hover:opacity-90 transition-opacity"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-primary to-accent text-primary-foreground font-semibold rounded-xl hover:opacity-90 transition-opacity"
             >
               Contact Us Today
             </a>
