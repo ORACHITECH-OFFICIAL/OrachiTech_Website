@@ -72,12 +72,12 @@ const ServicesSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-primary font-medium text-sm uppercase tracking-wider">
+          <span className="text-primary font-medium text-sm uppercase tracking-wider animated-text">
             Our Services
           </span>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">
             Solutions That{' '}
-            <span className="gradient-text">Drive Growth</span>
+            <span className="shimmer-text">Drive Growth</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
             From concept to deployment, we offer end-to-end technology services
@@ -93,7 +93,7 @@ const ServicesSection = () => {
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group glass-card rounded-2xl p-8 hover:border-primary/50 transition-all duration-500 relative overflow-hidden"
+              className="tech-card group glass-card rounded-2xl p-8 hover:border-primary/50 transition-all duration-500 relative overflow-hidden"
             >
               {/* Hover glow effect */}
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />

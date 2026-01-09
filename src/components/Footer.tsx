@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Twitter, Instagram } from 'lucide-react';
+import { Github, Linkedin, Twitter, Instagram, Award, Shield, CheckCircle } from 'lucide-react';
 import logo from '@/assets/logo.png';
 
 const footerLinks = {
@@ -28,6 +28,13 @@ const socialLinks = [
   { icon: Linkedin, href: '#', label: 'LinkedIn' },
   { icon: Github, href: '#', label: 'GitHub' },
   { icon: Instagram, href: '#', label: 'Instagram' },
+];
+
+const certificates = [
+  { name: 'ISO 27001', icon: Shield, description: 'Information Security' },
+  { name: 'ISO 9001', icon: Award, description: 'Quality Management' },
+  { name: 'AWS Partner', icon: CheckCircle, description: 'Certified Partner' },
+  { name: 'Google Cloud', icon: CheckCircle, description: 'Partner Program' },
 ];
 
 const Footer = () => {
@@ -117,8 +124,29 @@ const Footer = () => {
           </div>
         </div>
 
+        {/* Certificates Section */}
+        <div className="py-8 border-t border-b border-border/50 mb-8">
+          <h4 className="font-display font-semibold text-center mb-6">Certifications & Partnerships</h4>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {certificates.map((cert, index) => (
+              <motion.div
+                key={cert.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                whileHover={{ scale: 1.05, y: -2 }}
+                className="glass-card p-4 text-center group hover:border-primary/50 transition-all duration-300"
+              >
+                <cert.icon className="w-8 h-8 mx-auto mb-2 text-primary group-hover:scale-110 transition-transform" />
+                <p className="font-semibold text-sm">{cert.name}</p>
+                <p className="text-muted-foreground text-xs">{cert.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
         {/* Bottom */}
-        <div className="pt-8 border-t border-border/50 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-muted-foreground text-sm">
             © {new Date().getFullYear()} Orachi Tech. All rights reserved.
           </p>

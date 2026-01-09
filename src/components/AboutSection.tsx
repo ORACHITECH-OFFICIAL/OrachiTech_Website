@@ -42,12 +42,12 @@ const AboutSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-primary font-medium text-sm uppercase tracking-wider">
+          <span className="text-primary font-medium text-sm uppercase tracking-wider animated-text">
             About Us
           </span>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">
             Who We Are at{' '}
-            <span className="gradient-text">Orachi Tech</span>
+            <span className="shimmer-text">Orachi Tech</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
             We are a passionate team of developers, designers, and innovators
@@ -64,7 +64,7 @@ const AboutSection = () => {
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="glass-card rounded-2xl p-8 group hover:border-primary/50 transition-all duration-500"
+              className="tech-card glass-card rounded-2xl p-8 group hover:border-primary/50 transition-all duration-500"
             >
               <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors duration-300">
                 <card.icon className="w-7 h-7 text-primary" />

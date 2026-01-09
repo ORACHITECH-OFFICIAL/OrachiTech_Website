@@ -33,12 +33,12 @@ const FeaturesSection = () => {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6 }}
           >
-            <span className="text-primary font-medium text-sm uppercase tracking-wider">
+            <span className="text-primary font-medium text-sm uppercase tracking-wider animated-text">
               Why Choose Us
             </span>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">
               Technology Partner{' '}
-              <span className="gradient-text">You Can Trust</span>
+              <span className="shimmer-text">You Can Trust</span>
             </h2>
             <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
               We combine technical expertise with industry knowledge to deliver
@@ -81,7 +81,7 @@ const FeaturesSection = () => {
           >
             <div className="relative">
               {/* Main Card */}
-              <div className="glass-card rounded-3xl p-8 lg:p-10">
+              <div className="tech-card glass-card rounded-3xl p-8 lg:p-10">
                 <div className="space-y-6">
                   {/* Process Steps */}
                   {[
