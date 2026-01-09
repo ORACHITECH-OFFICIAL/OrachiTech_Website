@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import logo from '@/assets/logo.png';
 
@@ -82,13 +83,17 @@ const HeroSection = () => {
               transition={{ duration: 0.7, delay: 0.3 }}
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             >
-              <Button variant="hero" size="xl" className="group">
-                Start Your Project
-                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-              </Button>
-              <Button variant="heroOutline" size="xl">
-                View Our Work
-              </Button>
+              <Link to="/start-project">
+                <Button variant="hero" size="xl" className="group magnetic-button">
+                  Start Your Project
+                  <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                </Button>
+              </Link>
+              <Link to="/portfolio">
+                <Button variant="heroOutline" size="xl" className="hover-lift">
+                  View Our Work
+                </Button>
+              </Link>
             </motion.div>
 
             {/* Stats */}
