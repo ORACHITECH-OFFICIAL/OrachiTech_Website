@@ -146,12 +146,9 @@ const Footer = () => {
         </div>
 
         {/* Bottom */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="flex flex-col md:flex-row justify-center items-center gap-4">
           <p className="text-muted-foreground text-sm">
             © {new Date().getFullYear()} Orachi Tech. All rights reserved.
-          </p>
-          <p className="text-muted-foreground text-sm">
-            Crafted with 💚 by Orachi Tech Team
           </p>
         </div>
       </div>

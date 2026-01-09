@@ -20,7 +20,7 @@ const contactInfo = [
   {
     icon: MapPin,
     label: 'Visit Us',
-    value: 'Karachi, Pakistan',
+    value: 'Lahore, Pakistan',
   },
 ];
 
@@ -210,7 +210,7 @@ const ContactSection = () => {
               className="glass-card rounded-2xl overflow-hidden h-[200px] relative"
             >
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d462118.0247422953!2d66.88306699999999!3d24.8607343!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33e06651d4bbf%3A0x9cf92f44555a0c23!2sKarachi%2C%20Karachi%20City%2C%20Sindh%2C%20Pakistan!5e0!3m2!1sen!2s!4v1704985000000!5m2!1sen!2s"
+                src="https://maps.google.com/maps?q=HCG4%2BRG6%2C+Mehar+Fiaz+Colony+AA+Shalimar+Housing+Scheme%2C+Lahore&t=&z=15&ie=UTF8&iwloc=&output=embed"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}

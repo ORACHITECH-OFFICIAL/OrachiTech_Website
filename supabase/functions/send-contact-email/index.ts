@@ -53,11 +53,20 @@ const handler = async (req: Request): Promise<Response> => {
       }),
     });
 
+    let adminData;
     if (!adminEmailRes.ok) {
       const error = await adminEmailRes.text();
       console.error("Failed to send admin email:", error);
+      return new Response(
+        JSON.stringify({ error: `Failed to send admin email: ${error}` }),
+        {
+          status: 500,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
     } else {
-      console.log("Admin notification email sent successfully");
+      adminData = await adminEmailRes.json();
+      console.log("Admin notification email sent successfully", adminData);
     }
 
     // Send confirmation email to user
@@ -108,7 +117,11 @@ const handler = async (req: Request): Promise<Response> => {
     }
 
     return new Response(
-      JSON.stringify({ success: true, message: "Emails sent successfully" }),
+      JSON.stringify({ 
+        success: true, 
+        message: "Emails sent successfully",
+        data: adminData
+      }),
       {
         status: 200,
         headers: { "Content-Type": "application/json", ...corsHeaders },

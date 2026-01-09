@@ -23,7 +23,7 @@ const contactInfo = [
   {
     icon: MapPin,
     label: 'Address',
-    value: 'Karachi, Pakistan',
+    value: 'Lahore, Pakistan',
   },
   {
     icon: Clock,
