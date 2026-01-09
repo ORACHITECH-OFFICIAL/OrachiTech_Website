@@ -4,21 +4,21 @@ import logo from '@/assets/logo.png';
 
 const footerLinks = {
   company: [
-    { name: 'About', href: '#about' },
+    { name: 'About', href: '/about' },
+    { name: 'Team', href: '/#team' },
     { name: 'Careers', href: '#' },
     { name: 'Blog', href: '#' },
-    { name: 'Press', href: '#' },
   ],
   services: [
-    { name: 'Web Development', href: '#services' },
-    { name: 'Mobile Apps', href: '#services' },
-    { name: 'Cloud Solutions', href: '#services' },
-    { name: 'UI/UX Design', href: '#services' },
+    { name: 'Web Development', href: '/services' },
+    { name: 'Mobile Apps', href: '/services' },
+    { name: 'Cloud Solutions', href: '/services' },
+    { name: 'UI/UX Design', href: '/services' },
   ],
   support: [
-    { name: 'Contact', href: '#contact' },
-    { name: 'Documentation', href: '#' },
-    { name: 'FAQ', href: '#' },
+    { name: 'Contact', href: '/contact' },
+    { name: 'WhatsApp', href: 'https://wa.me/923233593780' },
+    { name: 'Phone', href: 'tel:+923233593780' },
     { name: 'Privacy Policy', href: '#' },
   ],
 };
