@@ -9,7 +9,6 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import { toast } from 'sonner';
-import { supabase } from '@/integrations/supabase/client';
 
 const projectTypes = [
   { id: 'web', label: 'Web Application', icon: '🌐' },
@@ -75,27 +74,25 @@ const StartProject = () => {
     setIsSubmitting(true);
 
     try {
-      const { error } = await supabase.functions.invoke('send-contact-email', {
-        body: {
-          name: formData.name,
-          email: formData.email,
-          company: formData.company,
-          phone: formData.phone,
-          subject: `New Project Inquiry: ${formData.projectType}`,
-          message: `
+      // Supabase removed. Using mailto as fallback.
+      const subject = `New Project Inquiry: ${formData.projectType}`;
+      const messageBody = `
 Project Type: ${formData.projectType}
 Budget: ${formData.budget}
 Timeline: ${formData.timeline}
+Company: ${formData.company}
+Phone: ${formData.phone}
 
 Description:
 ${formData.description}
-          `.trim(),
-        },
-      });
+      `.trim();
+      
+      const body = `Name: ${formData.name}\nEmail: ${formData.email}\n${messageBody}`;
+      const mailtoLink = `mailto:info@orachitech.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      
+      window.location.href = mailtoLink;
 
-      if (error) throw error;
-
-      toast.success('Thank you! We\'ll get back to you within 24 hours.');
+      toast.success('Opening email client to send your inquiry...');
       setFormData({
         name: '',
         email: '',
@@ -107,7 +104,8 @@ ${formData.description}
         description: '',
       });
     } catch (error) {
-      toast.error('Something went wrong. Please try again or contact us directly.');
+      console.error('Error sending message:', error);
+      toast.error('Failed to open email client.');
     } finally {
       setIsSubmitting(false);
     }

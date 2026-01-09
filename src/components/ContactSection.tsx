@@ -4,7 +4,6 @@ import { useRef, useState } from 'react';
 import { Send, Mail, MapPin, Phone, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import { supabase } from '@/integrations/supabase/client';
 
 const contactInfo = [
   {
@@ -40,15 +39,16 @@ const ContactSection = () => {
     setIsSubmitting(true);
 
     try {
-      const { error } = await supabase.functions.invoke('send-contact-email', {
-        body: formData,
-      });
-
-      if (error) throw error;
+      // Supabase removed. Using mailto as fallback.
+      const subject = `New Message from ${formData.name}`;
+      const body = `Name: ${formData.name}\nEmail: ${formData.email}\nMessage: ${formData.message}`;
+      const mailtoLink = `mailto:info@orachitech.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      
+      window.location.href = mailtoLink;
 
       toast({
-        title: 'Message Sent!',
-        description: 'Thank you for contacting us. We will get back to you soon.',
+        title: 'Opening Email Client',
+        description: 'Please send the email from your default mail client.',
       });
 
       setFormData({ name: '', email: '', message: '' });
@@ -56,7 +56,7 @@ const ContactSection = () => {
       console.error('Error sending message:', error);
       toast({
         title: 'Error',
-        description: 'Failed to send message. Please try again.',
+        description: 'Failed to open email client.',
         variant: 'destructive',
       });
     } finally {
