@@ -79,7 +79,7 @@ const Contact = () => {
       {/* Hero Section */}
       <section className="pt-32 pb-16 relative overflow-hidden">
         <div className="absolute inset-0 hexagon-pattern opacity-5" />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
         
         <div className="container mx-auto px-4 relative z-10">
           <motion.div
@@ -88,11 +88,11 @@ const Contact = () => {
             transition={{ duration: 0.6 }}
             className="text-center max-w-3xl mx-auto"
           >
-            <span className="text-teal-400 text-sm font-semibold tracking-wider uppercase mb-4 block">
+            <span className="text-primary text-sm font-semibold tracking-wider uppercase mb-4 block animated-text">
               Contact Us
             </span>
             <h1 className="text-4xl md:text-6xl font-display font-bold text-foreground mb-6">
-              Let's <span className="gradient-text">Connect</span>
+              Let's <span className="shimmer-text">Connect</span>
             </h1>
             <p className="text-muted-foreground text-lg">
               Have a project in mind? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
@@ -124,7 +124,7 @@ const Contact = () => {
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-teal-500 transition-colors"
+                      className="w-full px-4 py-3 bg-secondary border border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
                       placeholder="John Doe"
                     />
                   </div>
@@ -137,7 +137,7 @@ const Contact = () => {
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-teal-500 transition-colors"
+                      className="w-full px-4 py-3 bg-secondary border border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
                       placeholder="john@example.com"
                     />
                   </div>
@@ -151,7 +151,7 @@ const Contact = () => {
                     required
                     value={formData.subject}
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                    className="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-teal-500 transition-colors"
+                    className="w-full px-4 py-3 bg-secondary border border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
                     placeholder="How can we help?"
                   />
                 </div>
@@ -164,7 +164,7 @@ const Contact = () => {
                     rows={5}
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-teal-500 transition-colors resize-none"
+                    className="w-full px-4 py-3 bg-secondary border border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors resize-none"
                     placeholder="Tell us about your project..."
                   />
                 </div>
@@ -200,15 +200,15 @@ const Contact = () => {
                 <div className="space-y-6">
                   {contactInfo.map((info) => (
                     <div key={info.label} className="flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-teal-500/20 flex items-center justify-center flex-shrink-0">
-                        <info.icon className="w-6 h-6 text-teal-400" />
+                      <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center flex-shrink-0">
+                        <info.icon className="w-6 h-6 text-primary" />
                       </div>
                       <div>
                         <p className="text-muted-foreground text-sm mb-1">{info.label}</p>
                         {info.href ? (
                           <a
                             href={info.href}
-                            className="text-foreground font-medium hover:text-teal-400 transition-colors"
+                            className="text-foreground font-medium hover:text-primary transition-colors"
                           >
                             {info.value}
                           </a>
