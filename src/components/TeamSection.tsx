@@ -1,43 +1,23 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Linkedin, Twitter, Mail } from 'lucide-react';
+import { Linkedin, Mail } from 'lucide-react';
 
 const executives = [
   {
-    name: 'Ahmed Khan',
+    name: 'Muneeb Shahid',
     role: 'CEO & Founder',
-    bio: 'Visionary leader with 15+ years in tech industry. Passionate about innovation and digital transformation.',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face',
-    linkedin: '#',
-    twitter: '#',
-    email: 'ahmed@orachitech.com',
+    bio: 'Strategic visionary and technology enthusiast with a proven track record in driving innovation and building scalable digital solutions to empower businesses.',
+    image: '/assets/profile.png',
+    linkedin: 'https://www.linkedin.com/in/muneebshahid6550',
+    email: 'muneeb6550@gmail.com',
   },
   {
-    name: 'Sara Ali',
-    role: 'Chief Technology Officer',
-    bio: 'Tech expert driving cutting-edge solutions. Expert in cloud architecture and AI systems.',
-    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop&crop=face',
-    linkedin: '#',
-    twitter: '#',
-    email: 'sara@orachitech.com',
-  },
-  {
-    name: 'Hassan Raza',
-    role: 'Chief Operating Officer',
-    bio: 'Operations mastermind ensuring seamless project delivery and client satisfaction.',
-    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face',
-    linkedin: '#',
-    twitter: '#',
-    email: 'hassan@orachitech.com',
-  },
-  {
-    name: 'Fatima Zahra',
-    role: 'Chief Design Officer',
-    bio: 'Creative visionary crafting exceptional user experiences and brand identities.',
-    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face',
-    linkedin: '#',
-    twitter: '#',
-    email: 'fatima@orachitech.com',
+    name: 'Ghulam Fareed',
+    role: 'CTO & Director',
+    bio: 'Results-oriented leader specializing in subscription models and business growth, dedicated to delivering exceptional value and fostering long-term client relationships.',
+    image: '/assets/Web_Photo_Editor.jpg',
+    linkedin: 'https://www.linkedin.com/in/ghulam-fareed-b9a900236?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
+    email: 'fareedzubair125@gmail.com',
   },
 ];
 
@@ -72,7 +52,7 @@ const TeamSection = () => {
         </motion.div>
 
         {/* Executives Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {executives.map((exec, index) => (
             <motion.div
               key={exec.name}
@@ -81,10 +61,10 @@ const TeamSection = () => {
               transition={{ duration: 0.5, delay: index * 0.15 }}
               className="group relative"
             >
-              <div className="tech-card glass-card p-6 text-center h-full">
+              <div className="tech-card glass-card p-8 text-center h-full">
                 {/* Image Container */}
                 <div className="relative mb-6 mx-auto w-32 h-32 lg:w-40 lg:h-40">
-                  <motion.div 
+                  <motion.div
                     className="absolute inset-0 bg-gradient-to-br from-primary to-teal-dark rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"
                     animate={{ rotate: 360 }}
                     transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
@@ -93,7 +73,7 @@ const TeamSection = () => {
                   <img
                     src={exec.image}
                     alt={exec.name}
-                    className="relative w-full h-full object-cover rounded-full border-3 border-dark-600 group-hover:border-primary transition-all duration-500 group-hover:scale-105"
+                    className="relative w-full h-full object-cover object-top rounded-full border-3 border-dark-600 group-hover:border-primary transition-all duration-500 group-hover:scale-105"
                   />
                   {/* Floating badge */}
                   <motion.div
@@ -110,7 +90,7 @@ const TeamSection = () => {
                   {exec.name}
                 </h3>
                 <p className="text-primary text-sm font-medium mb-3">{exec.role}</p>
-                <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
+                <p className="text-muted-foreground text-sm mb-6 leading-relaxed">
                   {exec.bio}
                 </p>
 
@@ -118,24 +98,19 @@ const TeamSection = () => {
                 <div className="flex justify-center gap-4">
                   <motion.a
                     href={exec.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     whileHover={{ scale: 1.2, y: -2 }}
-                    className="w-9 h-9 rounded-lg bg-secondary flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-300"
+                    className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-300"
                   >
-                    <Linkedin className="w-4 h-4" />
-                  </motion.a>
-                  <motion.a
-                    href={exec.twitter}
-                    whileHover={{ scale: 1.2, y: -2 }}
-                    className="w-9 h-9 rounded-lg bg-secondary flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-300"
-                  >
-                    <Twitter className="w-4 h-4" />
+                    <Linkedin className="w-5 h-5" />
                   </motion.a>
                   <motion.a
                     href={`mailto:${exec.email}`}
                     whileHover={{ scale: 1.2, y: -2 }}
-                    className="w-9 h-9 rounded-lg bg-secondary flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-300"
+                    className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-300"
                   >
-                    <Mail className="w-4 h-4" />
+                    <Mail className="w-5 h-5" />
                   </motion.a>
                 </div>
               </div>
@@ -148,3 +123,4 @@ const TeamSection = () => {
 };
 
 export default TeamSection;
+

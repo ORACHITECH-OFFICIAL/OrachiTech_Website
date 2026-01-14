@@ -10,7 +10,7 @@ const navLinks = [
   { name: 'About', href: '/about', isPage: true },
   { name: 'Services', href: '/services', isPage: true },
   { name: 'Portfolio', href: '/portfolio', isPage: true },
-  { name: 'Team', href: '/#team', isPage: false },
+  // { name: 'Team', href: '/#team', isPage: false },
   { name: 'Contact', href: '/contact', isPage: true },
 ];
 
@@ -43,9 +43,8 @@ const Navbar = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'glass-card shadow-lg' : 'bg-transparent'
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'glass-card shadow-lg' : 'bg-transparent'
+        }`}
     >
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-20">

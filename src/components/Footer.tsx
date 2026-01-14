@@ -5,7 +5,7 @@ import logo from '@/assets/logo.png';
 const footerLinks = {
   company: [
     { name: 'About', href: '/about' },
-    { name: 'Team', href: '/#team' },
+    // { name: 'Team', href: '/#team' },
     { name: 'Careers', href: '#' },
     { name: 'Blog', href: '#' },
   ],
@@ -124,7 +124,7 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Certificates Section */}
+        {/* Certificates Section (Hidden)
         <div className="py-8 border-t border-b border-border/50 mb-8">
           <h4 className="font-display font-semibold text-center mb-6">Certifications & Partnerships</h4>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -144,6 +144,7 @@ const Footer = () => {
             ))}
           </div>
         </div>
+        */}
 
         {/* Bottom */}
         <div className="flex flex-col md:flex-row justify-center items-center gap-4">
