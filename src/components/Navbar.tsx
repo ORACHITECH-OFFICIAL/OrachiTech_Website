@@ -9,6 +9,7 @@ const navLinks = [
   { name: 'Home', href: '/', isPage: true },
   { name: 'About', href: '/about', isPage: true },
   { name: 'Services', href: '/services', isPage: true },
+  { name: 'School System', href: '/school-management-system', isPage: true },
   { name: 'Portfolio', href: '/portfolio', isPage: true },
   // { name: 'Team', href: '/#team', isPage: false },
   { name: 'Contact', href: '/contact', isPage: true },

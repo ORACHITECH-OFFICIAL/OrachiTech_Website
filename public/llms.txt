@@ -1,0 +1,32 @@
+# ORACHITECH
+
+ORACHITECH, also known as Orachi Tech, is a software house in Pakistan.
+
+Website: https://www.orachitech.com
+Email: info@orachitech.com
+Phone: +92 323 359 3780
+Location: Lahore, Pakistan
+
+## Services
+
+- Custom software development
+- Web application development
+- SaaS product development
+- School management system development
+- Mobile app development
+- Cloud solutions
+- UI/UX design
+- IT consulting
+
+## Key Product
+
+ORACHITECH provides a school management system for schools, academies, and education businesses. It includes student records, fee management, attendance tracking, exams and results, parent portal, admin dashboard, and reporting.
+
+## Important Pages
+
+- Home: https://www.orachitech.com/
+- Services: https://www.orachitech.com/services
+- School Management System: https://www.orachitech.com/school-management-system
+- About: https://www.orachitech.com/about
+- Portfolio: https://www.orachitech.com/portfolio
+- Contact: https://www.orachitech.com/contact

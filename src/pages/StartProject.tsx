@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
+import SEO from '@/components/SEO';
 import { toast } from 'sonner';
 
 const projectTypes = [
@@ -113,6 +114,12 @@ ${formData.description}
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Start a Software Project | ORACHITECH"
+        description="Start your web app, SaaS, mobile app, school management system, or custom software project with ORACHITECH."
+        path="/start-project"
+        keywords="start software project, request software proposal, SaaS project, web app development, school management system proposal"
+      />
       <Navbar />
 
       {/* Hero Section */}

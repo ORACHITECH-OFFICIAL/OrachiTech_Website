@@ -4,6 +4,7 @@ import { Code, Smartphone, Globe, Cloud, Shield, Cpu, Database, Palette, Zap, Us
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
+import SEO from '@/components/SEO';
 
 const services = [
   {
@@ -86,6 +87,12 @@ const Services = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Software Development Services in Pakistan | ORACHITECH"
+        description="ORACHITECH provides custom software development, web apps, SaaS development, mobile apps, cloud solutions, UI/UX design, ERP, AI, and IT consulting services."
+        path="/services"
+        keywords="software development services Pakistan, web development, mobile app development, SaaS development, cloud solutions, UI UX design, ERP software"
+      />
       <Navbar />
       <WhatsAppButton />
 

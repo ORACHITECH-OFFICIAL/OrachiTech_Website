@@ -12,8 +12,8 @@ const footerLinks = {
   services: [
     { name: 'Web Development', href: '/services' },
     { name: 'Mobile Apps', href: '/services' },
+    { name: 'School Management System', href: '/school-management-system' },
     { name: 'Cloud Solutions', href: '/services' },
-    { name: 'UI/UX Design', href: '/services' },
   ],
   support: [
     { name: 'Contact', href: '/contact' },

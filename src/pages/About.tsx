@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import TeamSection from '@/components/TeamSection';
 import WhatsAppButton from '@/components/WhatsAppButton';
+import SEO from '@/components/SEO';
 
 const values = [
   {
@@ -44,6 +45,12 @@ const About = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="About ORACHITECH | Software House in Pakistan"
+        description="Learn about ORACHITECH, a Pakistan-based software house building web applications, SaaS products, mobile apps, school management systems, and business software."
+        path="/about"
+        keywords="about ORACHITECH, Orachi Tech, software house Pakistan, software company Lahore"
+      />
       <Navbar />
       <WhatsAppButton />
 

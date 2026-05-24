@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import { Link } from 'react-router-dom';
+import SEO from '@/components/SEO';
 
 const projects = [
   {
@@ -85,6 +86,12 @@ const itemVariants = {
 const Portfolio = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="ORACHITECH Portfolio | Software Projects and Case Studies"
+        description="Explore ORACHITECH software projects, including web platforms, mobile apps, SaaS products, enterprise software, analytics dashboards, and management systems."
+        path="/portfolio"
+        keywords="ORACHITECH portfolio, software projects Pakistan, web app case studies, SaaS projects, enterprise software portfolio"
+      />
       <Navbar />
 
       {/* Hero Section */}

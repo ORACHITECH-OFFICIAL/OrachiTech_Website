@@ -5,6 +5,7 @@ import { useToast } from '@/hooks/use-toast';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
+import SEO from '@/components/SEO';
 
 const contactInfo = [
   {
@@ -73,6 +74,12 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Contact ORACHITECH | Software House in Lahore, Pakistan"
+        description="Contact ORACHITECH for software development, web applications, SaaS products, school management systems, mobile apps, and business software projects."
+        path="/contact"
+        keywords="contact ORACHITECH, software house Lahore, software company Pakistan, web development company Pakistan"
+      />
       <Navbar />
       <WhatsAppButton />
 
@@ -226,7 +233,7 @@ const Contact = () => {
                 <h3 className="text-lg font-semibold text-foreground mb-4">Our Location</h3>
                 <div className="aspect-video bg-dark-700 rounded-xl overflow-hidden">
                   <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d462118.0247422953!2d66.88306699999999!3d24.8607343!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33e06651d4bbf%3A0x9cf92f44555a0c23!2sKarachi%2C%20Karachi%20City%2C%20Sindh%2C%20Pakistan!5e0!3m2!1sen!2s!4v1704985000000!5m2!1sen!2s"
+                    src="https://www.google.com/maps?q=Lahore%2C%20Pakistan&output=embed"
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}
