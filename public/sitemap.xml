@@ -28,4 +28,20 @@
     <loc>https://www.orachitech.com/start-project</loc>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://www.orachitech.com/blog</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.orachitech.com/blog/school-management-saas-pakistan</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.orachitech.com/case-studies</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.orachitech.com/case-studies/school-management-saas</loc>
+    <priority>0.8</priority>
+  </url>
 </urlset>
