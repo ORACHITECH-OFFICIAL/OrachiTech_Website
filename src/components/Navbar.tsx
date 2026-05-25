@@ -11,6 +11,8 @@ const navLinks = [
   { name: 'Services', href: '/services', isPage: true },
   { name: 'School System', href: '/school-management-system', isPage: true },
   { name: 'Portfolio', href: '/portfolio', isPage: true },
+  { name: 'Case Studies', href: '/case-studies', isPage: true },
+  { name: 'Blog', href: '/blog', isPage: true },
   // { name: 'Team', href: '/#team', isPage: false },
   { name: 'Contact', href: '/contact', isPage: true },
 ];
