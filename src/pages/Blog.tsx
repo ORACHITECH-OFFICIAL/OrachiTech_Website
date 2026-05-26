@@ -5,7 +5,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import SEO from '@/components/SEO';
-import { schoolSaasBlog } from '@/data/content';
+import { blogPosts } from '@/data/content';
 
 const Blog = () => {
   return (
@@ -44,31 +44,36 @@ const Blog = () => {
 
         <section className="pb-20">
           <div className="container mx-auto px-6">
-            <motion.article
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="grid lg:grid-cols-[0.9fr_1.1fr] gap-8 tech-card rounded-2xl overflow-hidden"
-            >
-              <img src={schoolSaasBlog.heroImage} alt="" className="h-full min-h-80 w-full object-cover" />
-              <div className="p-8 lg:p-10 flex flex-col justify-center">
-                <div className="flex flex-wrap gap-3 text-sm text-muted-foreground mb-5">
-                  <span className="text-primary font-semibold">{schoolSaasBlog.category}</span>
-                  <span>{schoolSaasBlog.date}</span>
-                  <span className="inline-flex items-center gap-2">
-                    <Clock className="w-4 h-4" />
-                    {schoolSaasBlog.readTime}
-                  </span>
-                </div>
-                <h2 className="font-display text-2xl md:text-4xl font-bold mb-4">{schoolSaasBlog.title}</h2>
-                <p className="text-muted-foreground mb-8">{schoolSaasBlog.summary}</p>
-                <Link to={`/blog/${schoolSaasBlog.slug}`} className="inline-flex items-center gap-2 text-primary font-semibold">
-                  Read article
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </motion.article>
+            <div className="grid gap-8">
+              {blogPosts.map((post, index) => (
+                <motion.article
+                  key={post.slug}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.08 }}
+                  className="grid lg:grid-cols-[0.9fr_1.1fr] gap-8 tech-card rounded-2xl overflow-hidden"
+                >
+                  <img src={post.heroImage} alt="" className="h-full min-h-80 w-full object-cover" />
+                  <div className="p-8 lg:p-10 flex flex-col justify-center">
+                    <div className="flex flex-wrap gap-3 text-sm text-muted-foreground mb-5">
+                      <span className="text-primary font-semibold">{post.category}</span>
+                      <span>{post.date}</span>
+                      <span className="inline-flex items-center gap-2">
+                        <Clock className="w-4 h-4" />
+                        {post.readTime}
+                      </span>
+                    </div>
+                    <h2 className="font-display text-2xl md:text-4xl font-bold mb-4">{post.title}</h2>
+                    <p className="text-muted-foreground mb-8">{post.summary}</p>
+                    <Link to={`/blog/${post.slug}`} className="inline-flex items-center gap-2 text-primary font-semibold">
+                      Read article
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  </div>
+                </motion.article>
+              ))}
+            </div>
           </div>
         </section>
       </main>
