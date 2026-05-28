@@ -22,6 +22,10 @@ Location: Lahore, Pakistan
 
 ORACHITECH provides a school management system for schools, academies, and education businesses. It includes student records, fee management, attendance tracking, exams and results, parent portal, admin dashboard, and reporting.
 
+## Content Focus
+
+The website publishes practical software guidance for growing businesses, schools, academies, and organizations deciding how to modernize operations. Current content covers school management SaaS, custom software versus off-the-shelf SaaS, software project case studies, web applications, SaaS development, ERP workflows, dashboards, automation, and digital transformation.
+
 ## Important Pages
 
 - Home: https://www.orachitech.com/
@@ -29,4 +33,9 @@ ORACHITECH provides a school management system for schools, academies, and educa
 - School Management System: https://www.orachitech.com/school-management-system
 - About: https://www.orachitech.com/about
 - Portfolio: https://www.orachitech.com/portfolio
+- Blog: https://www.orachitech.com/blog
+- Custom Software vs Off-the-Shelf SaaS: https://www.orachitech.com/blog/custom-software-vs-off-the-shelf-saas
+- School Management SaaS Guide: https://www.orachitech.com/blog/school-management-saas-pakistan
+- Case Studies: https://www.orachitech.com/case-studies
+- School Management SaaS Case Study: https://www.orachitech.com/case-studies/school-management-saas
 - Contact: https://www.orachitech.com/contact
