@@ -34,6 +34,7 @@ The website publishes practical software guidance for growing businesses, school
 - About: https://www.orachitech.com/about
 - Portfolio: https://www.orachitech.com/portfolio
 - Blog: https://www.orachitech.com/blog
+- Business Dashboard and Workflow Automation: https://www.orachitech.com/blog/custom-business-dashboard-workflow-automation
 - Custom Software vs Off-the-Shelf SaaS: https://www.orachitech.com/blog/custom-software-vs-off-the-shelf-saas
 - School Management SaaS Guide: https://www.orachitech.com/blog/school-management-saas-pakistan
 - Case Studies: https://www.orachitech.com/case-studies

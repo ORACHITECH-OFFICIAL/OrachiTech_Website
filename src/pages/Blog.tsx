@@ -7,6 +7,19 @@ import WhatsAppButton from '@/components/WhatsAppButton';
 import SEO from '@/components/SEO';
 import { blogPosts } from '@/data/content';
 
+const dashboardAutomationPost = {
+  title: 'What a Custom Business Dashboard Should Show Before You Automate Operations',
+  slug: 'custom-business-dashboard-workflow-automation',
+  category: 'Business Automation',
+  date: 'June 3, 2026',
+  readTime: '7 min read',
+  summary:
+    'A practical checklist for teams that want cleaner reporting, fewer spreadsheet handoffs, and workflow automation built around the right KPIs.',
+  heroImage: '/placeholder.svg',
+};
+
+const posts = [dashboardAutomationPost, ...blogPosts];
+
 const Blog = () => {
   return (
     <div className="min-h-screen bg-background">
@@ -45,7 +58,7 @@ const Blog = () => {
         <section className="pb-20">
           <div className="container mx-auto px-6">
             <div className="grid gap-8">
-              {blogPosts.map((post, index) => (
+              {posts.map((post, index) => (
                 <motion.article
                   key={post.slug}
                   initial={{ opacity: 0, y: 30 }}
