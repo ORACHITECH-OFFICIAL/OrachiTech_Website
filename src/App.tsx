@@ -10,6 +10,11 @@ import Contact from "./pages/Contact";
 import Portfolio from "./pages/Portfolio";
 import StartProject from "./pages/StartProject";
 import SchoolManagementSystem from "./pages/SchoolManagementSystem";
+import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
+import DashboardAutomationBlog from "./pages/DashboardAutomationBlog";
+import CaseStudies from "./pages/CaseStudies";
+import CaseStudyDetail from "./pages/CaseStudyDetail";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +33,11 @@ const App = () => (
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/start-project" element={<StartProject />} />
           <Route path="/school-management-system" element={<SchoolManagementSystem />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/custom-business-dashboard-workflow-automation" element={<DashboardAutomationBlog />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/case-studies" element={<CaseStudies />} />
+          <Route path="/case-studies/school-management-saas" element={<CaseStudyDetail />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
