@@ -1,183 +1,106 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowDown, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import logo from '@/assets/logo.png';
+import { usePublishedPage } from '@/lib/cms';
+
+const proofPoints = ['Strategy', 'Experience design', 'Engineering'];
 
 const HeroSection = () => {
+  const page = usePublishedPage('home', {
+    eyebrow: 'Independent digital product studio · Lahore / Worldwide',
+    heading: 'Software, designed for momentum.',
+    description:
+      'We partner with ambitious teams to shape, build, and evolve digital products that perform in the real world.',
+    heroImage: '/assets/hero-editorial-v2.png',
+    proofPoints,
+    primaryCtaLabel: 'Start a conversation',
+    primaryCtaUrl: '/start-project',
+    secondaryCtaLabel: 'View selected work',
+    secondaryCtaUrl: '/portfolio',
+  });
+
+  const heroImage = page.heroImage === '/assets/tech-hero.png'
+    ? '/assets/hero-editorial-v2.png'
+    : page.heroImage || '/assets/hero-editorial-v2.png';
+
   return (
-    <section
-      id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
-    >
-      {/* Background Effects */}
-      <div className="absolute inset-0 hexagon-pattern" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/10 rounded-full blur-3xl" />
-      <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] bg-teal-dark/20 rounded-full blur-3xl" />
-      
-      {/* Animated Particles */}
-      {[...Array(5)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-2 h-2 bg-primary/40 rounded-full"
-          style={{
-            left: `${20 + i * 15}%`,
-            top: `${30 + (i % 3) * 20}%`,
-          }}
-          animate={{
-            y: [0, -30, 0],
-            opacity: [0.4, 1, 0.4],
-          }}
-          transition={{
-            duration: 3 + i,
-            repeat: Infinity,
-            ease: 'easeInOut',
-            delay: i * 0.5,
-          }}
-        />
-      ))}
+    <section id="home" className="relative min-h-[100svh] overflow-hidden bg-slate-950 text-white">
+      <motion.img
+        src={heroImage}
+        alt="Cinematic design and engineering studio with an integrated digital product wall"
+        className="absolute inset-0 h-full w-full object-cover object-[64%_center] sm:object-center"
+        initial={{ scale: 1.06 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
+      />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(3,11,18,0.92)_0%,rgba(3,11,18,0.74)_38%,rgba(3,11,18,0.22)_72%,rgba(3,11,18,0.34)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,11,18,0.38)_0%,transparent_28%,rgba(3,11,18,0.66)_100%)]" />
+      <div className="absolute inset-0 hero-grain opacity-30" />
 
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
-          {/* Text Content */}
-          <div className="flex-1 text-center lg:text-left">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-2 px-4 py-2 glass-card rounded-full mb-8"
-            >
-              <Sparkles className="w-4 h-4 text-primary" />
-              <span className="text-sm text-muted-foreground">
-                Innovating the Future of Technology
-              </span>
-            </motion.div>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1 }}
-              className="font-display text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight mb-6"
-            >
-              Transform Your
-              <br />
-              <span className="gradient-text">Digital Vision</span>
-              <br />
-              Into Reality
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0 mb-10"
-            >
-              We craft cutting-edge software solutions that empower businesses
-              to thrive in the digital era. From web applications to mobile apps,
-              we bring your ideas to life.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.3 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-            >
-              <Link to="/start-project">
-                <Button variant="hero" size="xl" className="group magnetic-button">
-                  Start Your Project
-                  <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-                </Button>
-              </Link>
-              <Link to="/portfolio">
-                <Button variant="heroOutline" size="xl" className="hover-lift">
-                  View Our Work
-                </Button>
-              </Link>
-            </motion.div>
-
-            {/* Stats */}
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="flex flex-wrap gap-8 sm:gap-12 justify-center lg:justify-start mt-14"
-            >
-              {[
-                { value: '100+', label: 'Projects Delivered' },
-                { value: '50+', label: 'Happy Clients' },
-                { value: '5+', label: 'Years Experience' },
-              ].map((stat, index) => (
-                <div key={index} className="text-center lg:text-left">
-                  <div className="text-3xl sm:text-4xl font-display font-bold gradient-text">
-                    {stat.value}
-                  </div>
-                  <div className="text-sm text-muted-foreground mt-1">
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
-            </motion.div>
-          </div>
-
-          {/* Logo/Visual */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="flex-1 flex justify-center"
+      <div className="container relative z-10 mx-auto flex min-h-[100svh] flex-col justify-end px-6 pb-8 pt-32 sm:pb-10 lg:pb-12">
+        <div className="max-w-4xl">
+          <motion.p
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.2 }}
+            className="mb-6 text-xs font-semibold uppercase tracking-[0.22em] text-teal-200/90 sm:text-sm"
           >
-            <div className="relative">
-              {/* Glow effect behind logo */}
-              <div className="absolute inset-0 bg-primary/20 blur-3xl rounded-full scale-110" />
-              <motion.img
-                src={logo}
-                alt="Orachi Tech Logo"
-                className="relative w-64 sm:w-80 lg:w-[450px] h-auto drop-shadow-2xl"
-                animate={{
-                  y: [0, -15, 0],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
-              />
-              {/* Orbiting elements */}
-              <motion.div
-                className="absolute top-10 -right-4 w-16 h-16 glass-card rounded-xl flex items-center justify-center"
-                animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
+            {page.eyebrow}
+          </motion.p>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 32 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            className="max-w-4xl font-display text-[clamp(3rem,8vw,7.4rem)] font-medium leading-[0.88] tracking-[-0.065em] text-white"
+          >
+            {page.heading}
+          </motion.h1>
+
+          <motion.div
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.75, delay: 0.48 }}
+            className="mt-8 grid items-end gap-8 border-t border-white/20 pt-6 md:grid-cols-[1fr_auto]"
+          >
+            <p className="max-w-2xl text-base leading-relaxed text-white/72 sm:text-lg lg:text-xl">
+              {page.description}
+            </p>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Link
+                to={page.primaryCtaUrl || '/start-project'}
+                className="group inline-flex items-center justify-center gap-3 rounded-full bg-teal-400 px-6 py-3.5 text-sm font-semibold text-slate-950 transition-colors hover:bg-white"
               >
-                <span className="text-2xl">🚀</span>
-              </motion.div>
-              <motion.div
-                className="absolute bottom-10 -left-4 w-16 h-16 glass-card rounded-xl flex items-center justify-center"
-                animate={{ y: [0, 10, 0] }}
-                transition={{ duration: 3, repeat: Infinity, delay: 1 }}
+                {page.primaryCtaLabel || 'Start a conversation'}
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+              <Link
+                to={page.secondaryCtaUrl || '/portfolio'}
+                className="inline-flex items-center justify-center rounded-full border border-white/35 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white hover:text-slate-950"
               >
-                <span className="text-2xl">💡</span>
-              </motion.div>
+                {page.secondaryCtaLabel || 'View selected work'}
+              </Link>
             </div>
           </motion.div>
         </div>
-      </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 0.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-      >
         <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="w-6 h-10 border-2 border-muted-foreground/50 rounded-full flex justify-center pt-2"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.75 }}
+          className="mt-8 flex items-end justify-between gap-6"
         >
-          <motion.div className="w-1.5 h-1.5 bg-primary rounded-full" />
+          <div className="hidden gap-8 text-[11px] font-medium uppercase tracking-[0.18em] text-white/45 sm:flex">
+            {(page.proofPoints || proofPoints).map((point) => <span key={point}>{point}</span>)}
+          </div>
+          <a href="#about" className="ml-auto hidden items-center gap-3 text-xs font-medium uppercase tracking-[0.18em] text-white/60 transition-colors hover:text-white sm:flex">
+            Scroll to explore
+            <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/25">
+              <ArrowDown className="h-4 w-4" />
+            </span>
+          </a>
         </motion.div>
-      </motion.div>
+      </div>
     </section>
   );
 };

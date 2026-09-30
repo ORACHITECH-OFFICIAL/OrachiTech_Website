@@ -1,130 +1,153 @@
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import {
+  ArrowUpRight,
+  BarChart3,
+  Cloud,
+  Code,
+  Globe,
+  Palette,
+  Shield,
+  Smartphone,
+  type LucideIcon,
+} from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { usePublishedCollection } from '@/lib/cms';
+
+type ServiceItem = {
+  title: string;
+  description: string;
+  features: string[];
+  icon: LucideIcon | string;
+  order?: number;
+};
+
+const defaultServices: ServiceItem[] = [
+  {
+    icon: Globe,
+    title: 'Web platforms',
+    description: 'High-performance websites and applications designed around real customer and business workflows.',
+    features: ['Product architecture', 'React applications', 'Systems integration'],
+  },
+  {
+    icon: Smartphone,
+    title: 'Mobile products',
+    description: 'Focused mobile experiences that feel native, stay maintainable, and are ready to grow.',
+    features: ['iOS and Android', 'Flutter / React Native', 'Launch support'],
+  },
+  {
+    icon: Cloud,
+    title: 'Cloud systems',
+    description: 'Reliable infrastructure and delivery pipelines that remove friction from operating at scale.',
+    features: ['Cloud architecture', 'DevOps', 'CI/CD pipelines'],
+  },
+  {
+    icon: Palette,
+    title: 'Product design',
+    description: 'Clear interfaces and design systems that make complex products easier to understand and use.',
+    features: ['Experience strategy', 'Prototyping', 'Design systems'],
+  },
+  {
+    icon: Shield,
+    title: 'Security',
+    description: 'Practical security work that protects products, infrastructure, and the people who depend on them.',
+    features: ['Security reviews', 'Hardening', 'Compliance support'],
+  },
+  {
+    icon: BarChart3,
+    title: 'Data and automation',
+    description: 'Dashboards, integrations, and automations that turn operational data into useful decisions.',
+    features: ['Data pipelines', 'Decision dashboards', 'Workflow automation'],
+  },
+];
+
+const iconMap: Record<string, LucideIcon> = {
   Globe,
   Smartphone,
   Cloud,
   Palette,
   Shield,
   BarChart3,
-} from 'lucide-react';
-
-const services = [
-  {
-    icon: Globe,
-    title: 'Web Development',
-    description:
-      'Custom web applications built with modern technologies for optimal performance and scalability.',
-    features: ['React / Next.js', 'Node.js Backend', 'API Integration'],
-  },
-  {
-    icon: Smartphone,
-    title: 'Mobile Development',
-    description:
-      'Native and cross-platform mobile apps that deliver exceptional user experiences.',
-    features: ['iOS & Android', 'Flutter / React Native', 'App Store Ready'],
-  },
-  {
-    icon: Cloud,
-    title: 'Cloud Solutions',
-    description:
-      'Scalable cloud infrastructure and deployment solutions for your growing business.',
-    features: ['AWS / Azure / GCP', 'DevOps', 'CI/CD Pipelines'],
-  },
-  {
-    icon: Palette,
-    title: 'UI/UX Design',
-    description:
-      'Beautiful, intuitive designs that engage users and drive conversions.',
-    features: ['User Research', 'Prototyping', 'Design Systems'],
-  },
-  {
-    icon: Shield,
-    title: 'Cybersecurity',
-    description:
-      'Protect your digital assets with our comprehensive security solutions.',
-    features: ['Security Audits', 'Penetration Testing', 'Compliance'],
-  },
-  {
-    icon: BarChart3,
-    title: 'Data & Analytics',
-    description:
-      'Turn your data into actionable insights with our analytics solutions.',
-    features: ['Data Pipelines', 'Dashboards', 'Machine Learning'],
-  },
-];
+  Code,
+};
 
 const ServicesSection = () => {
-  const ref = useRef(null);
+  const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const { items } = usePublishedCollection<ServiceItem>('services', defaultServices);
+  const services = items
+    .map((service) => ({
+      ...service,
+      icon: typeof service.icon === 'string' ? (iconMap[service.icon] || Code) : service.icon,
+    }))
+    .slice(0, 6);
 
   return (
-    <section id="services" className="py-24 relative overflow-hidden" ref={ref}>
-      {/* Background */}
-      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-teal-dark/10 rounded-full blur-3xl" />
+    <section id="services" ref={ref} className="relative overflow-hidden bg-[#f3f1eb] py-24 text-slate-950 lg:py-36">
+      <div className="container relative z-10 mx-auto px-6">
+        <div className="grid gap-10 border-b border-slate-950/15 pb-14 lg:grid-cols-[0.42fr_1fr] lg:gap-20 lg:pb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+          >
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-teal-700">What we do</p>
+            <p className="mt-5 max-w-xs text-sm leading-relaxed text-slate-600">
+              Senior product thinking and hands-on delivery, assembled around the outcome your business needs.
+            </p>
+          </motion.div>
 
-      <div className="container mx-auto px-6 relative z-10">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <span className="text-primary font-medium text-sm uppercase tracking-wider animated-text">
-            Our Services
-          </span>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">
-            Solutions That{' '}
-            <span className="shimmer-text">Drive Growth</span>
-          </h2>
-          <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
-            From concept to deployment, we offer end-to-end technology services
-            tailored to your unique business needs.
-          </p>
-        </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <h2 className="max-w-4xl font-display text-4xl font-medium leading-[1.02] tracking-[-0.045em] sm:text-5xl lg:text-7xl">
+              From first decision to durable digital product.
+            </h2>
+            <div className="mt-9 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+              <p className="max-w-2xl text-lg leading-relaxed text-slate-600">
+                We combine strategy, design, engineering, and continuous improvement so good ideas survive contact with the real world.
+              </p>
+              <Link to="/services" className="group inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-teal-700">
+                All capabilities
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </Link>
+            </div>
+          </motion.div>
+        </div>
 
-        {/* Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {services.map((service, index) => (
-            <motion.div
-              key={service.title}
-              initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="tech-card group glass-card rounded-2xl p-8 hover:border-primary/50 transition-all duration-500 relative overflow-hidden"
-            >
-              {/* Hover glow effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-              <div className="relative z-10">
-                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/20 to-teal-dark/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <service.icon className="w-7 h-7 text-primary" />
-                </div>
-
-                <h3 className="font-display text-xl font-semibold mb-3">
+        <div>
+          {services.map((service, index) => {
+            const Icon = service.icon as LucideIcon;
+            return (
+              <motion.article
+                key={service.title}
+                initial={{ opacity: 0, y: 28 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.16 + index * 0.07 }}
+                className="group grid gap-6 border-b border-slate-950/15 py-9 md:grid-cols-[80px_minmax(180px,0.72fr)_1.1fr_auto] md:items-start md:gap-8 lg:py-12"
+              >
+                <span className="font-mono text-xs text-slate-400">{String(index + 1).padStart(2, '0')}</span>
+                <h3 className="font-display text-2xl font-medium tracking-[-0.025em] transition-transform duration-300 group-hover:translate-x-1 sm:text-3xl">
                   {service.title}
                 </h3>
-
-                <p className="text-muted-foreground mb-6 leading-relaxed">
-                  {service.description}
-                </p>
-
-                <ul className="space-y-2">
-                  {service.features.map((feature) => (
-                    <li
-                      key={feature}
-                      className="flex items-center gap-2 text-sm text-muted-foreground"
-                    >
-                      <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                <div>
+                  <p className="max-w-xl leading-relaxed text-slate-600">{service.description}</p>
+                  <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2">
+                  {(service.features || []).map((feature) => (
+                    <li key={feature} className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-500">
                       {feature}
                     </li>
                   ))}
-                </ul>
-              </div>
-            </motion.div>
-          ))}
+                  </ul>
+                </div>
+                <span className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-950/20 transition-colors group-hover:border-teal-700 group-hover:bg-teal-700 group-hover:text-white">
+                  <Icon className="h-5 w-5" />
+                </span>
+              </motion.article>
+            );
+          })}
         </div>
       </div>
     </section>

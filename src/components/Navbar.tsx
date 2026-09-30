@@ -1,157 +1,113 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
 import logo from '@/assets/logo.png';
 
 const navLinks = [
-  { name: 'Home', href: '/', isPage: true },
-  { name: 'About', href: '/about', isPage: true },
-  { name: 'Services', href: '/services', isPage: true },
-  { name: 'School System', href: '/school-management-system', isPage: true },
-  { name: 'Portfolio', href: '/portfolio', isPage: true },
-  { name: 'Case Studies', href: '/case-studies', isPage: true },
-  { name: 'Blog', href: '/blog', isPage: true },
-  // { name: 'Team', href: '/#team', isPage: false },
-  { name: 'Contact', href: '/contact', isPage: true },
+  { name: 'Home', href: '/' },
+  { name: 'About', href: '/about' },
+  { name: 'Services', href: '/services' },
+  { name: 'Portfolio', href: '/portfolio' },
+  { name: 'Case Studies', href: '/case-studies' },
+  { name: 'Insights', href: '/blog' },
+  { name: 'Contact', href: '/contact' },
 ];
+
+const cinematicRoutes = new Set(['/', '/about', '/services', '/portfolio', '/case-studies', '/blog', '/contact', '/start-project']);
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const transparentHero = cinematicRoutes.has(location.pathname) && !isScrolled && !isMobileMenuOpen;
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => setIsScrolled(window.scrollY > 32);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleNavClick = (href: string, isPage: boolean) => {
-    setIsMobileMenuOpen(false);
-    if (!isPage && href.includes('#')) {
-      const sectionId = href.split('#')[1];
-      if (location.pathname === '/') {
-        const element = document.getElementById(sectionId);
-        element?.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  };
+  useEffect(() => setIsMobileMenuOpen(false), [location.pathname]);
 
   return (
     <motion.nav
-      initial={{ y: -100 }}
+      initial={{ y: -90 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'glass-card shadow-lg' : 'bg-transparent'
-        }`}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-500 ${
+        transparentHero
+          ? 'border-transparent bg-transparent text-white'
+          : 'border-slate-900/10 bg-[#f8f8f5]/92 text-slate-950 shadow-[0_8px_30px_rgba(3,16,20,0.06)] backdrop-blur-xl'
+      }`}
     >
       <div className="container mx-auto px-6">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-            <Link to="/" className="flex items-center gap-3">
-              <img src={logo} alt="Orachi Tech" className="h-12 w-auto" />
-              <span className="font-display text-xl font-bold gradient-text">
-                Orachi Tech
-              </span>
-            </Link>
-          </motion.div>
+        <div className="flex h-20 items-center justify-between">
+          <Link to="/" className="flex items-center gap-3" aria-label="Orachi Tech home">
+            <img src={logo} alt="" className="h-11 w-auto" />
+            <span className="font-display text-lg font-semibold tracking-[-0.02em]">Orachi Tech</span>
+          </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link, index) => (
-              <motion.div
+          <div className="hidden items-center gap-7 lg:flex">
+            {navLinks.map((link) => (
+              <Link
                 key={link.name}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
+                to={link.href}
+                className={`group relative py-2 text-sm font-medium transition-colors ${
+                  location.pathname === link.href
+                    ? transparentHero ? 'text-white' : 'text-slate-950'
+                    : transparentHero ? 'text-white/70 hover:text-white' : 'text-slate-600 hover:text-slate-950'
+                }`}
               >
-                {link.isPage ? (
-                  <Link
-                    to={link.href}
-                    className="text-muted-foreground hover:text-primary transition-colors duration-300 font-medium relative group"
-                  >
-                    {link.name}
-                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
-                  </Link>
-                ) : (
-                  <a
-                    href={link.href}
-                    onClick={() => handleNavClick(link.href, link.isPage)}
-                    className="text-muted-foreground hover:text-primary transition-colors duration-300 font-medium relative group"
-                  >
-                    {link.name}
-                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
-                  </a>
-                )}
-              </motion.div>
-            ))}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-            >
-              <Link to="/contact">
-                <Button variant="hero" size="default">
-                  Get Started
-                </Button>
+                {link.name}
+                <span className={`absolute inset-x-0 bottom-0 h-px origin-left transition-transform duration-300 ${transparentHero ? 'bg-teal-300' : 'bg-teal-700'} ${location.pathname === link.href ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`} />
               </Link>
-            </motion.div>
+            ))}
+            <Link
+              to="/start-project"
+              className={`rounded-full px-5 py-2.5 text-sm font-semibold transition-colors ${
+                transparentHero
+                  ? 'bg-white text-slate-950 hover:bg-teal-300'
+                  : 'bg-slate-950 text-white hover:bg-teal-700'
+              }`}
+            >
+              Start a project
+            </Link>
           </div>
 
-          {/* Mobile Menu Button */}
           <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden text-foreground p-2"
+            type="button"
+            onClick={() => setIsMobileMenuOpen((open) => !open)}
+            className="flex h-10 w-10 items-center justify-center lg:hidden"
+            aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={isMobileMenuOpen}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
-        {isMobileMenuOpen && (
+        {isMobileMenuOpen ? (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden glass-card border-t border-border/50"
+            className="overflow-hidden border-t border-slate-900/10 bg-[#f8f8f5] text-slate-950 lg:hidden"
           >
-            <div className="container mx-auto px-6 py-6 flex flex-col gap-4">
-              {navLinks.map((link) =>
-                link.isPage ? (
-                  <Link
-                    key={link.name}
-                    to={link.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="text-muted-foreground hover:text-primary transition-colors duration-300 font-medium py-2"
-                  >
-                    {link.name}
-                  </Link>
-                ) : (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    onClick={() => handleNavClick(link.href, link.isPage)}
-                    className="text-muted-foreground hover:text-primary transition-colors duration-300 font-medium py-2"
-                  >
-                    {link.name}
-                  </a>
-                )
-              )}
-              <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
-                <Button variant="hero" size="lg" className="mt-4 w-full">
-                  Get Started
-                </Button>
+            <div className="container mx-auto flex flex-col px-6 py-5">
+              {navLinks.map((link) => (
+                <Link key={link.name} to={link.href} className="border-b border-slate-900/10 py-4 font-medium last:border-b-0">
+                  {link.name}
+                </Link>
+              ))}
+              <Link to="/start-project" className="mt-5 rounded-full bg-slate-950 px-5 py-3.5 text-center font-semibold text-white">
+                Start a project
               </Link>
             </div>
           </motion.div>
-        )}
+        ) : null}
       </AnimatePresence>
     </motion.nav>
   );

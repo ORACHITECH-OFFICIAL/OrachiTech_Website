@@ -9,7 +9,7 @@ type SEOProps = {
 };
 
 const SITE_URL = 'https://www.orachitech.com';
-const DEFAULT_IMAGE = `${SITE_URL}/logo.png`;
+const DEFAULT_IMAGE = `${SITE_URL}/og-v2.png`;
 
 const setMeta = (selector: string, attribute: 'content' | 'href', value: string) => {
   const element = document.head.querySelector(selector);

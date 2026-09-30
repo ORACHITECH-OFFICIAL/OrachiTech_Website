@@ -6,69 +6,69 @@
 
 @layer base {
   :root {
-    --background: 222 47% 6%;
-    --foreground: 180 100% 98%;
+    --background: 60 15% 97%;
+    --foreground: 216 45% 12%;
 
-    --card: 222 47% 8%;
-    --card-foreground: 180 100% 98%;
+    --card: 0 0% 100%;
+    --card-foreground: 216 45% 12%;
 
-    --popover: 222 47% 8%;
-    --popover-foreground: 180 100% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 216 45% 12%;
 
-    --primary: 172 66% 50%;
-    --primary-foreground: 222 47% 6%;
+    --primary: 173 78% 31%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 222 30% 15%;
-    --secondary-foreground: 180 100% 98%;
+    --secondary: 60 12% 93%;
+    --secondary-foreground: 216 45% 15%;
 
-    --muted: 222 30% 12%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 60 10% 93%;
+    --muted-foreground: 215 14% 40%;
 
-    --accent: 172 80% 40%;
-    --accent-foreground: 180 100% 98%;
+    --accent: 171 45% 90%;
+    --accent-foreground: 174 76% 24%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 222 30% 18%;
-    --input: 222 30% 18%;
-    --ring: 172 66% 50%;
+    --border: 210 10% 82%;
+    --input: 210 10% 82%;
+    --ring: 173 78% 31%;
 
     --radius: 0.75rem;
 
     /* Custom Orachi Tech colors */
-    --teal-light: 174 72% 56%;
-    --teal-primary: 172 66% 50%;
-    --teal-dark: 173 69% 38%;
-    --teal-darker: 180 50% 20%;
-    --dark-base: 222 47% 6%;
-    --dark-elevated: 222 47% 10%;
-    --dark-surface: 222 47% 14%;
+    --teal-light: 171 61% 47%;
+    --teal-primary: 173 78% 31%;
+    --teal-dark: 176 73% 27%;
+    --teal-darker: 184 64% 20%;
+    --dark-base: 60 15% 97%;
+    --dark-elevated: 60 12% 93%;
+    --dark-surface: 60 9% 89%;
     
     /* Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(var(--teal-light)) 0%, hsl(var(--teal-dark)) 100%);
-    --gradient-hero: linear-gradient(180deg, hsl(222 47% 8%) 0%, hsl(222 47% 4%) 100%);
-    --gradient-glow: radial-gradient(ellipse at center, hsl(172 66% 50% / 0.15) 0%, transparent 70%);
-    --gradient-card: linear-gradient(135deg, hsl(222 47% 12% / 0.8) 0%, hsl(222 47% 8% / 0.6) 100%);
+    --gradient-hero: linear-gradient(180deg, hsl(168 45% 99%) 0%, hsl(169 38% 95%) 100%);
+    --gradient-glow: radial-gradient(ellipse at center, hsl(171 61% 47% / 0.16) 0%, transparent 70%);
+    --gradient-card: linear-gradient(135deg, hsl(0 0% 100% / 0.96) 0%, hsl(168 38% 97% / 0.92) 100%);
     
     /* Shadows */
-    --shadow-glow: 0 0 60px hsl(172 66% 50% / 0.3);
-    --shadow-card: 0 8px 32px hsl(0 0% 0% / 0.4);
-    --shadow-elevated: 0 25px 50px -12px hsl(0 0% 0% / 0.5);
+    --shadow-glow: 0 0 60px hsl(173 78% 31% / 0.18);
+    --shadow-card: 0 12px 36px hsl(184 45% 22% / 0.10);
+    --shadow-elevated: 0 25px 50px -12px hsl(184 45% 22% / 0.18);
 
-    --sidebar-background: 222 47% 8%;
-    --sidebar-foreground: 180 100% 98%;
-    --sidebar-primary: 172 66% 50%;
-    --sidebar-primary-foreground: 222 47% 6%;
-    --sidebar-accent: 222 30% 15%;
-    --sidebar-accent-foreground: 180 100% 98%;
-    --sidebar-border: 222 30% 18%;
-    --sidebar-ring: 172 66% 50%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 218 43% 17%;
+    --sidebar-primary: 173 78% 31%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 170 34% 93%;
+    --sidebar-accent-foreground: 218 43% 20%;
+    --sidebar-border: 173 25% 84%;
+    --sidebar-ring: 173 78% 31%;
   }
 
   .dark {
-    --background: 222 47% 6%;
-    --foreground: 180 100% 98%;
+    --background: 60 15% 97%;
+    --foreground: 216 45% 12%;
   }
 }
 
@@ -94,12 +94,13 @@
 @layer components {
   .glass-card {
     @apply backdrop-blur-xl border border-border/50;
-    background: linear-gradient(135deg, hsl(222 47% 12% / 0.6) 0%, hsl(222 47% 8% / 0.4) 100%);
+    background: hsl(0 0% 100% / 0.82);
+    box-shadow: 0 14px 44px -30px hsl(216 45% 12% / 0.22);
   }
 
   .gradient-text {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(174 72% 56%) 0%, hsl(172 66% 50%) 50%, hsl(173 69% 38%) 100%);
+    background-image: linear-gradient(135deg, hsl(176 73% 27%) 0%, hsl(173 78% 31%) 52%, hsl(194 72% 40%) 100%);
   }
 
   .glow-effect {
@@ -108,6 +109,55 @@
 
   .hexagon-pattern {
     background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5L55 17.5V42.5L30 55L5 42.5V17.5L30 5Z' fill='none' stroke='%2314b8a6' stroke-opacity='0.05' stroke-width='1'/%3E%3C/svg%3E");
+  }
+
+  .hero-grain {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+    mix-blend-mode: soft-light;
+  }
+
+  .technology-marquee {
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+  }
+
+  .technology-marquee-track {
+    display: flex;
+    width: max-content;
+    animation: technology-scroll 32s linear infinite;
+  }
+
+  .technology-marquee-reverse {
+    animation-direction: reverse;
+    animation-duration: 38s;
+  }
+
+  @keyframes technology-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .hero-mesh {
+    background-image:
+      linear-gradient(hsl(var(--primary) / 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--primary) / 0.035) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: linear-gradient(to bottom, black 0%, transparent 88%);
+  }
+
+  .visual-frame::after {
+    content: '';
+    position: absolute;
+    inset: -120% -40%;
+    background: linear-gradient(110deg, transparent 42%, hsl(0 0% 100% / 0.48) 50%, transparent 58%);
+    transform: translateX(-42%) rotate(8deg);
+    animation: image-shine 7s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @keyframes image-shine {
+    0%, 68% { transform: translateX(-42%) rotate(8deg); }
+    90%, 100% { transform: translateX(42%) rotate(8deg); }
   }
 
   .floating-animation {
@@ -151,11 +201,11 @@
   .shimmer-text {
     background: linear-gradient(
       90deg,
-      hsl(174 72% 56%) 0%,
-      hsl(180 100% 70%) 25%,
-      hsl(172 66% 50%) 50%,
-      hsl(180 100% 70%) 75%,
-      hsl(173 69% 38%) 100%
+      hsl(176 73% 27%) 0%,
+      hsl(191 72% 38%) 25%,
+      hsl(173 78% 31%) 50%,
+      hsl(191 72% 38%) 75%,
+      hsl(176 73% 27%) 100%
     );
     background-size: 200% auto;
     -webkit-background-clip: text;
@@ -177,8 +227,9 @@
   /* Tech card hover effects */
   .tech-card {
     @apply relative overflow-hidden transition-all duration-500;
-    background: linear-gradient(135deg, hsl(222 47% 10% / 0.8) 0%, hsl(222 47% 6% / 0.6) 100%);
-    border: 1px solid hsl(var(--border) / 0.3);
+    background: hsl(0 0% 100% / 0.94);
+    border: 1px solid hsl(var(--border) / 0.8);
+    box-shadow: 0 18px 50px -36px hsl(216 45% 12% / 0.3);
   }
 
   .tech-card::before {
@@ -204,8 +255,8 @@
   .tech-card:hover {
     border-color: hsl(var(--primary) / 0.5);
     box-shadow: 
-      0 0 30px hsl(172 66% 50% / 0.15),
-      0 20px 40px hsl(0 0% 0% / 0.3);
+      0 0 30px hsl(173 78% 31% / 0.12),
+      0 20px 40px hsl(184 45% 22% / 0.14);
     transform: translateY(-5px);
   }
 
@@ -216,7 +267,7 @@
 
   .hover-lift:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 30px hsl(0 0% 0% / 0.3);
+    box-shadow: 0 10px 30px hsl(184 45% 22% / 0.14);
   }
 
   /* Magnetic button effect */
@@ -300,6 +351,15 @@
 
   .scale-hover:hover {
     transform: scale(1.05);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      scroll-behavior: auto !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
