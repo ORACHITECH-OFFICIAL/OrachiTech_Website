@@ -1,183 +1,69 @@
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { Code, Smartphone, Globe, Cloud, Shield, Cpu, Database, Palette, Zap, Users, BarChart, Headphones } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ArrowUpRight, BarChart, Cloud, Code, Cpu, Database, Globe, Headphones, Palette, Shield, Smartphone, Users, Zap, type LucideIcon } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import SEO from '@/components/SEO';
+import InteriorHero from '@/components/InteriorHero';
+import EditorialCTA from '@/components/EditorialCTA';
+import { usePublishedCollection } from '@/lib/cms';
 
-const services = [
-  {
-    icon: Code,
-    title: 'Custom Software Development',
-    description: 'Tailored software solutions designed to meet your specific business requirements and goals.',
-    features: ['Enterprise Applications', 'API Development', 'Legacy Modernization', 'System Integration'],
-  },
-  {
-    icon: Smartphone,
-    title: 'Mobile App Development',
-    description: 'Native and cross-platform mobile applications for iOS and Android platforms.',
-    features: ['iOS Development', 'Android Development', 'React Native', 'Flutter Apps'],
-  },
-  {
-    icon: Globe,
-    title: 'Web Development',
-    description: 'Modern, responsive websites and web applications using cutting-edge technologies.',
-    features: ['React/Next.js', 'E-commerce', 'Progressive Web Apps', 'CMS Development'],
-  },
-  {
-    icon: Cloud,
-    title: 'Cloud Solutions',
-    description: 'Scalable cloud infrastructure and migration services for optimal performance.',
-    features: ['AWS/Azure/GCP', 'Cloud Migration', 'Serverless Architecture', 'DevOps'],
-  },
-  {
-    icon: Shield,
-    title: 'Cybersecurity',
-    description: 'Comprehensive security solutions to protect your digital assets and data.',
-    features: ['Security Audits', 'Penetration Testing', 'Compliance', 'Threat Monitoring'],
-  },
-  {
-    icon: Cpu,
-    title: 'AI & Machine Learning',
-    description: 'Intelligent solutions powered by artificial intelligence and machine learning.',
-    features: ['Predictive Analytics', 'NLP Solutions', 'Computer Vision', 'Automation'],
-  },
-  {
-    icon: Database,
-    title: 'Data Analytics',
-    description: 'Transform raw data into actionable insights for informed decision-making.',
-    features: ['Business Intelligence', 'Data Visualization', 'Big Data', 'Real-time Analytics'],
-  },
-  {
-    icon: Palette,
-    title: 'UI/UX Design',
-    description: 'User-centered design that creates engaging and intuitive digital experiences.',
-    features: ['User Research', 'Prototyping', 'Visual Design', 'Usability Testing'],
-  },
-  {
-    icon: Zap,
-    title: 'Digital Transformation',
-    description: 'End-to-end digital transformation services to modernize your business.',
-    features: ['Process Automation', 'Digital Strategy', 'Change Management', 'Innovation Labs'],
-  },
-  {
-    icon: Users,
-    title: 'IT Consulting',
-    description: 'Expert technology consulting to guide your digital initiatives.',
-    features: ['Technology Assessment', 'Strategy Planning', 'Architecture Design', 'Vendor Selection'],
-  },
-  {
-    icon: BarChart,
-    title: 'ERP Solutions',
-    description: 'Enterprise resource planning systems to streamline business operations.',
-    features: ['SAP/Oracle', 'Custom ERP', 'Implementation', 'Training & Support'],
-  },
-  {
-    icon: Headphones,
-    title: '24/7 Support',
-    description: 'Round-the-clock technical support and maintenance services.',
-    features: ['Help Desk', 'System Monitoring', 'Bug Fixes', 'Updates & Patches'],
-  },
+const defaultServices = [
+  { icon: Code, title: 'Custom software', description: 'Purpose-built systems shaped around the way your business actually works.', features: ['Product architecture', 'API development', 'Systems integration'] },
+  { icon: Smartphone, title: 'Mobile products', description: 'Focused iOS and Android experiences designed to feel natural and scale cleanly.', features: ['Product design', 'Flutter / React Native', 'Launch support'] },
+  { icon: Globe, title: 'Web platforms', description: 'Fast, accessible digital platforms with a strong product and brand point of view.', features: ['React applications', 'Commerce', 'Content platforms'] },
+  { icon: Cloud, title: 'Cloud systems', description: 'Reliable infrastructure, deployment pipelines, and integrations for growing products.', features: ['Cloud architecture', 'DevOps', 'Observability'] },
+  { icon: Shield, title: 'Cybersecurity', description: 'Practical protection for applications, infrastructure, data, and customer trust.', features: ['Security review', 'Hardening', 'Compliance support'] },
+  { icon: Cpu, title: 'Applied AI', description: 'AI features and automations that solve specific problems instead of chasing novelty.', features: ['AI workflows', 'Knowledge systems', 'Automation'] },
+  { icon: Database, title: 'Data products', description: 'Clear dashboards and dependable pipelines that make complex information useful.', features: ['Data pipelines', 'Business intelligence', 'Decision dashboards'] },
+  { icon: Palette, title: 'Experience design', description: 'Research, interaction design, and visual systems that make software easier to use.', features: ['UX strategy', 'Prototyping', 'Design systems'] },
+  { icon: Zap, title: 'Modernization', description: 'A measured route from aging tools and manual work to resilient digital operations.', features: ['Platform audit', 'Process redesign', 'Migration'] },
+  { icon: Users, title: 'Product consulting', description: 'Senior guidance for teams making consequential product and technology decisions.', features: ['Roadmapping', 'Technical direction', 'Team enablement'] },
+  { icon: BarChart, title: 'Operational systems', description: 'Connected software that makes everyday business work more visible and efficient.', features: ['Workflow design', 'ERP extensions', 'Reporting'] },
+  { icon: Headphones, title: 'Product evolution', description: 'Ongoing improvement, support, and optimization after the first release.', features: ['Managed delivery', 'Performance', 'Continuous improvement'] },
 ];
 
+type ServiceItem = { title: string; description: string; features: string[]; icon: LucideIcon | string; order?: number };
+
 const Services = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.1 });
+  const { items } = usePublishedCollection<ServiceItem>('services', defaultServices);
+  const iconMap: Record<string, LucideIcon> = { Code, Smartphone, Globe, Cloud, Shield, Cpu, Database, Palette, Zap, Users, BarChart, Headphones };
+  const services = items.map((service) => ({ ...service, icon: typeof service.icon === 'string' ? (iconMap[service.icon] || Code) : service.icon }));
 
   return (
-    <div className="min-h-screen bg-background">
-      <SEO
-        title="Software Development Services in Pakistan | ORACHITECH"
-        description="ORACHITECH provides custom software development, web apps, SaaS development, mobile apps, cloud solutions, UI/UX design, ERP, AI, and IT consulting services."
-        path="/services"
-        keywords="software development services Pakistan, web development, mobile app development, SaaS development, cloud solutions, UI UX design, ERP software"
-      />
+    <div className="min-h-screen bg-[#f3f1eb]">
+      <SEO title="Software Development Services in Pakistan | ORACHITECH" description="ORACHITECH provides product design, custom software, web, mobile, cloud, data, AI, and technology consulting services." path="/services" keywords="software development services Pakistan, product design, web development, SaaS, mobile apps, cloud, AI" />
       <Navbar />
       <WhatsAppButton />
-
-      {/* Hero Section */}
-      <section className="pt-32 pb-16 relative overflow-hidden">
-        <div className="absolute inset-0 hexagon-pattern opacity-5" />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
-        
-        <div className="container mx-auto px-4 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center max-w-3xl mx-auto"
-          >
-            <span className="text-primary text-sm font-semibold tracking-wider uppercase mb-4 block animated-text">
-              Our Services
-            </span>
-            <h1 className="text-4xl md:text-6xl font-display font-bold text-foreground mb-6">
-              Comprehensive <span className="shimmer-text">Tech Solutions</span>
-            </h1>
-            <p className="text-muted-foreground text-lg">
-              From concept to deployment, we offer end-to-end technology services to help your business thrive in the digital age.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Services Grid */}
-      <section className="py-16" ref={ref}>
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, index) => (
-              <motion.div
-                key={service.title}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="tech-card glass-card p-8 hover:border-primary/50 transition-all duration-300 group"
-              >
-                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <service.icon className="w-7 h-7 text-primary-foreground" />
-                </div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">{service.title}</h3>
-                <p className="text-muted-foreground mb-4">{service.description}</p>
-                <ul className="space-y-2">
-                  {service.features.map((feature) => (
-                    <li key={feature} className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            ))}
+      <main>
+        <InteriorHero eyebrow="How we help" title="Built around the outcome, not the output." description="Strategy, design, engineering, and product evolution brought together as one senior, accountable team." imagePosition="70% center" />
+        <section className="px-6 py-20 lg:py-28">
+          <div className="container mx-auto">
+            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="grid gap-8 border-b border-slate-950/20 pb-14 lg:grid-cols-[0.62fr_1.38fr]">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-teal-700">A complete product practice</p>
+              <p className="max-w-4xl font-display text-3xl leading-[1.12] tracking-[-0.035em] sm:text-5xl">We assemble the right disciplines around the problem—then stay close enough to carry the thinking all the way into production.</p>
+            </motion.div>
+            <div>
+              {services.map((service, index) => {
+                const Icon = service.icon as LucideIcon;
+                return <motion.article key={service.title} initial={{ opacity: 0, y: 36 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.25 }} transition={{ duration: 0.65, delay: Math.min(index * 0.035, 0.2) }} className="group grid gap-6 border-b border-slate-950/15 py-9 md:grid-cols-[80px_minmax(210px,.8fr)_1.1fr_auto] md:gap-8 lg:py-12">
+                  <span className="font-mono text-xs text-slate-400">{String(index + 1).padStart(2, '0')}</span>
+                  <h2 className="font-display text-3xl font-medium tracking-[-0.03em] transition-transform duration-300 group-hover:translate-x-2">{service.title}</h2>
+                  <div><p className="max-w-xl leading-relaxed text-slate-600">{service.description}</p><ul className="mt-5 flex flex-wrap gap-x-6 gap-y-2">{(service.features || []).map((feature) => <li key={feature} className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-500">{feature}</li>)}</ul></div>
+                  <span className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-950/20 transition-all duration-300 group-hover:rotate-6 group-hover:border-teal-700 group-hover:bg-teal-700 group-hover:text-white"><Icon className="h-5 w-5" /></span>
+                </motion.article>;
+              })}
+            </div>
           </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="glass-card p-12 text-center"
-          >
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-4">
-              Ready to Get Started?
-            </h2>
-            <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Let's discuss how we can help transform your business with our technology solutions.
-            </p>
-            <a
-              href="/#contact"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-primary to-accent text-primary-foreground font-semibold rounded-xl hover:opacity-90 transition-opacity"
-            >
-              Contact Us Today
-            </a>
-          </motion.div>
-        </div>
-      </section>
-
+        </section>
+        <section className="bg-slate-950 px-6 py-20 text-white lg:py-28">
+          <div className="container mx-auto grid gap-12 lg:grid-cols-[.7fr_1.3fr]">
+            <div><p className="text-xs font-semibold uppercase tracking-[.2em] text-teal-300">How we work</p><h2 className="mt-5 font-display text-4xl leading-none tracking-[-.04em] sm:text-6xl">Clarity at every handoff.</h2></div>
+            <div className="divide-y divide-white/15 border-y border-white/15">{['Frame the real problem', 'Prototype the critical experience', 'Build in focused releases', 'Measure, learn, and evolve'].map((step, index) => <motion.div key={step} initial={{ opacity: 0, x: 24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: index * .08 }} className="flex items-center justify-between py-7"><span className="text-lg sm:text-2xl">{step}</span><span className="font-mono text-xs text-teal-300">0{index + 1} <ArrowUpRight className="ml-3 inline h-4 w-4" /></span></motion.div>)}</div>
+          </div>
+        </section>
+        <EditorialCTA />
+      </main>
       <Footer />
     </div>
   );

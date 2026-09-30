@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Twitter, Instagram, Award, Shield, CheckCircle } from 'lucide-react';
 import logo from '@/assets/logo.png';
+import { useSiteSettings } from '@/lib/cms';
 
 const footerLinks = {
   company: [
@@ -13,7 +14,7 @@ const footerLinks = {
   services: [
     { name: 'Web Development', href: '/services' },
     { name: 'Mobile Apps', href: '/services' },
-    { name: 'School Management System', href: '/school-management-system' },
+    { name: 'Data & Automation', href: '/services' },
     { name: 'Cloud Solutions', href: '/services' },
   ],
   support: [
@@ -39,6 +40,11 @@ const certificates = [
 ];
 
 const Footer = () => {
+  const settings = useSiteSettings({ siteName: 'Orachi Tech', phone: '+92 323 359 3780', whatsapp: '923233593780', linkedin: '#', instagram: '#', facebook: '#' });
+  const managedSocialLinks = [
+    { icon: Linkedin, href: settings.linkedin || '#', label: 'LinkedIn' },
+    { icon: Instagram, href: settings.instagram || '#', label: 'Instagram' },
+  ];
   return (
     <footer className="border-t border-border/50 bg-dark-elevated/50 py-16">
       <div className="container mx-auto px-6">
@@ -52,7 +58,7 @@ const Footer = () => {
             >
               <img src={logo} alt="Orachi Tech" className="h-10 w-auto" />
               <span className="font-display text-xl font-bold gradient-text">
-                Orachi Tech
+                {settings.siteName}
               </span>
             </motion.a>
             <p className="text-muted-foreground mb-6 max-w-sm">
@@ -61,7 +67,7 @@ const Footer = () => {
             </p>
             {/* Social Links */}
             <div className="flex gap-4">
-              {socialLinks.map((social) => (
+              {managedSocialLinks.map((social) => (
                 <motion.a
                   key={social.label}
                   href={social.href}
@@ -150,7 +156,7 @@ const Footer = () => {
         {/* Bottom */}
         <div className="flex flex-col md:flex-row justify-center items-center gap-4">
           <p className="text-muted-foreground text-sm">
-            © {new Date().getFullYear()} Orachi Tech. All rights reserved.
+            © {new Date().getFullYear()} {settings.siteName}. All rights reserved.
           </p>
         </div>
       </div>

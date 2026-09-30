@@ -1,254 +1,78 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Clock, Send, Loader2 } from 'lucide-react';
+import { ArrowUpRight, Clock, Loader2, Mail, MapPin, Phone, Send } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import SEO from '@/components/SEO';
-
-const contactInfo = [
-  {
-    icon: Mail,
-    label: 'Email',
-    value: 'info@orachitech.com',
-    href: 'mailto:info@orachitech.com',
-  },
-  {
-    icon: Phone,
-    label: 'Phone',
-    value: '+92 323 359 3780',
-    href: 'tel:+923233593780',
-  },
-  {
-    icon: MapPin,
-    label: 'Address',
-    value: 'Lahore, Pakistan',
-  },
-  {
-    icon: Clock,
-    label: 'Business Hours',
-    value: 'Mon - Fri: 9:00 AM - 6:00 PM',
-  },
-];
+import InteriorHero from '@/components/InteriorHero';
+import { usePublishedPage, useSiteSettings } from '@/lib/cms';
 
 const Contact = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-  });
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+  const settings = useSiteSettings({ email: 'info@orachitech.com', phone: '+92 323 359 3780', address: 'Lahore, Pakistan', businessHours: 'Mon - Fri: 9:00 AM - 6:00 PM' });
+  const page = usePublishedPage('contact', { eyebrow: 'Start a conversation', heading: 'Bring us the challenge.', description: 'Tell us what needs to change, where the friction lives, or what you want to make possible. We’ll respond with a clear next step.' });
+  const contactInfo = [
+    { icon: Mail, label: 'Email', value: settings.email, href: `mailto:${settings.email}` },
+    { icon: Phone, label: 'Phone', value: settings.phone, href: `tel:${settings.phone.replace(/\s/g, '')}` },
+    { icon: MapPin, label: 'Studio', value: settings.address },
+    { icon: Clock, label: 'Working hours', value: settings.businessHours },
+  ];
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
     setIsSubmitting(true);
-
     try {
-      // Supabase removed. Using mailto as fallback.
       const subject = formData.subject || `New Message from ${formData.name}`;
       const body = `Name: ${formData.name}\nEmail: ${formData.email}\nSubject: ${formData.subject}\nMessage: ${formData.message}`;
-      const mailtoLink = `mailto:info@orachitech.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      
-      window.location.href = mailtoLink;
-
-      toast({
-        title: 'Opening Email Client',
-        description: 'Please send the email from your default mail client.',
-      });
-
+      window.location.href = `mailto:${settings.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      toast({ title: 'Opening your email client', description: 'Review the message, then send it from your email application.' });
       setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
-      console.error('Error sending message:', error);
-      toast({
-        title: 'Error',
-        description: 'Failed to open email client.',
-        variant: 'destructive',
-      });
+      console.error('Error opening email client:', error);
+      toast({ title: 'Unable to open email', description: `Please email us directly at ${settings.email}.`, variant: 'destructive' });
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  const inputClass = 'w-full border-0 border-b border-slate-950/20 bg-transparent px-0 py-4 text-lg text-slate-950 outline-none transition-colors placeholder:text-slate-400 focus:border-teal-700';
+
   return (
-    <div className="min-h-screen bg-background">
-      <SEO
-        title="Contact ORACHITECH | Software House in Lahore, Pakistan"
-        description="Contact ORACHITECH for software development, web applications, SaaS products, school management systems, mobile apps, and business software projects."
-        path="/contact"
-        keywords="contact ORACHITECH, software house Lahore, software company Pakistan, web development company Pakistan"
-      />
+    <div className="min-h-screen bg-[#f3f1eb]">
+      <SEO title="Contact ORACHITECH | Start a Digital Product Project" description="Talk to ORACHITECH about product design, custom software, web, mobile, AI, automation, and digital modernization." path="/contact" keywords="contact ORACHITECH, software studio Lahore, start software project Pakistan" />
       <Navbar />
       <WhatsAppButton />
+      <main>
+        <InteriorHero eyebrow={page.eyebrow || 'Start a conversation'} title={page.heading || 'Bring us the challenge.'} description={page.description || 'Tell us what needs to change. We’ll respond with a clear next step.'} imagePosition="82% center" />
 
-      {/* Hero Section */}
-      <section className="pt-32 pb-16 relative overflow-hidden">
-        <div className="absolute inset-0 hexagon-pattern opacity-5" />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
-        
-        <div className="container mx-auto px-4 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center max-w-3xl mx-auto"
-          >
-            <span className="text-primary text-sm font-semibold tracking-wider uppercase mb-4 block animated-text">
-              Contact Us
-            </span>
-            <h1 className="text-4xl md:text-6xl font-display font-bold text-foreground mb-6">
-              Let's <span className="shimmer-text">Connect</span>
-            </h1>
-            <p className="text-muted-foreground text-lg">
-              Have a project in mind? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+        <section className="px-6 py-20 lg:py-28">
+          <div className="container mx-auto grid gap-16 lg:grid-cols-[.72fr_1.28fr] lg:gap-24">
+            <motion.aside initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="lg:sticky lg:top-28 lg:self-start">
+              <p className="text-xs font-semibold uppercase tracking-[.2em] text-teal-700">Direct lines</p>
+              <h2 className="mt-5 font-display text-4xl leading-[1.02] tracking-[-.04em] sm:text-5xl">No sales maze. Talk to the studio.</h2>
+              <div className="mt-10 divide-y divide-slate-950/15 border-y border-slate-950/15">
+                {contactInfo.map((info) => <div key={info.label} className="group grid grid-cols-[42px_1fr] gap-4 py-6"><info.icon className="h-5 w-5 text-teal-700 transition-transform group-hover:-translate-y-1" /><div><p className="text-[10px] font-semibold uppercase tracking-[.15em] text-slate-400">{info.label}</p>{info.href ? <a href={info.href} className="mt-1 inline-flex items-center gap-2 font-medium hover:text-teal-700">{info.value}<ArrowUpRight className="h-3.5 w-3.5" /></a> : <p className="mt-1 font-medium">{info.value}</p>}</div></div>)}
+              </div>
+            </motion.aside>
 
-      {/* Contact Content */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12">
-            {/* Contact Form */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              className="glass-card p-8"
-            >
-              <h2 className="text-2xl font-semibold text-foreground mb-6">Send us a Message</h2>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">
-                      Your Name
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-4 py-3 bg-secondary border border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
-                      placeholder="John Doe"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">
-                      Email Address
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-4 py-3 bg-secondary border border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
-                      placeholder="john@example.com"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">
-                    Subject
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.subject}
-                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                    className="w-full px-4 py-3 bg-secondary border border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
-                    placeholder="How can we help?"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">
-                    Message
-                  </label>
-                  <textarea
-                    required
-                    rows={5}
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full px-4 py-3 bg-secondary border border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors resize-none"
-                    placeholder="Tell us about your project..."
-                  />
-                </div>
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-teal-500 to-teal-600 text-white font-semibold rounded-xl hover:opacity-90 transition-opacity disabled:opacity-50"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <Loader2 className="w-5 h-5 animate-spin" />
-                      Sending...
-                    </>
-                  ) : (
-                    <>
-                      <Send className="w-5 h-5" />
-                      Send Message
-                    </>
-                  )}
-                </button>
+            <motion.div initial={{ opacity: 0, y: 38 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .15 }} transition={{ duration: .75 }}>
+              <div className="flex items-end justify-between border-b border-slate-950/20 pb-6"><div><p className="text-xs font-semibold uppercase tracking-[.2em] text-teal-700">Project enquiry</p><h2 className="mt-3 font-display text-3xl tracking-[-.03em] sm:text-4xl">Tell us what you’re working on.</h2></div><span className="hidden font-mono text-xs text-slate-400 sm:block">AVG. REPLY / 1–2 DAYS</span></div>
+              <form onSubmit={handleSubmit} className="mt-4">
+                <div className="grid gap-x-8 sm:grid-cols-2"><label className="py-4 text-xs font-semibold uppercase tracking-[.14em] text-slate-500">Your name<input type="text" required value={formData.name} onChange={(event) => setFormData({ ...formData, name: event.target.value })} className={inputClass} placeholder="Name or company" /></label><label className="py-4 text-xs font-semibold uppercase tracking-[.14em] text-slate-500">Email<input type="email" required value={formData.email} onChange={(event) => setFormData({ ...formData, email: event.target.value })} className={inputClass} placeholder="you@company.com" /></label></div>
+                <label className="block py-4 text-xs font-semibold uppercase tracking-[.14em] text-slate-500">What should we discuss?<input type="text" required value={formData.subject} onChange={(event) => setFormData({ ...formData, subject: event.target.value })} className={inputClass} placeholder="New product, redesign, modernization…" /></label>
+                <label className="block py-4 text-xs font-semibold uppercase tracking-[.14em] text-slate-500">A little context<textarea required rows={5} value={formData.message} onChange={(event) => setFormData({ ...formData, message: event.target.value })} className={`${inputClass} resize-none`} placeholder="The challenge, the ambition, and where you are now." /></label>
+                <button type="submit" disabled={isSubmitting} className="group mt-8 inline-flex items-center gap-3 rounded-full bg-slate-950 px-7 py-4 text-sm font-semibold text-white transition-all hover:-translate-y-1 hover:bg-teal-700 disabled:opacity-50">{isSubmitting ? <><Loader2 className="h-4 w-4 animate-spin" />Opening email…</> : <>Send the enquiry<Send className="h-4 w-4 transition-transform group-hover:translate-x-1" /></>}</button>
               </form>
             </motion.div>
-
-            {/* Contact Info */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="space-y-6"
-            >
-              <div className="glass-card p-8">
-                <h2 className="text-2xl font-semibold text-foreground mb-6">Get in Touch</h2>
-                <div className="space-y-6">
-                  {contactInfo.map((info) => (
-                    <div key={info.label} className="flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center flex-shrink-0">
-                        <info.icon className="w-6 h-6 text-primary" />
-                      </div>
-                      <div>
-                        <p className="text-muted-foreground text-sm mb-1">{info.label}</p>
-                        {info.href ? (
-                          <a
-                            href={info.href}
-                            className="text-foreground font-medium hover:text-primary transition-colors"
-                          >
-                            {info.value}
-                          </a>
-                        ) : (
-                          <p className="text-foreground font-medium">{info.value}</p>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Map Placeholder */}
-              <div className="glass-card p-8">
-                <h3 className="text-lg font-semibold text-foreground mb-4">Our Location</h3>
-                <div className="aspect-video bg-dark-700 rounded-xl overflow-hidden">
-                  <iframe
-                    src="https://www.google.com/maps?q=Lahore%2C%20Pakistan&output=embed"
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    allowFullScreen
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    title="Orachi Tech Location"
-                  />
-                </div>
-              </div>
-            </motion.div>
           </div>
-        </div>
-      </section>
+        </section>
 
+        <section className="bg-slate-950 px-6 py-16 text-white lg:py-20"><motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="container mx-auto grid gap-8 lg:grid-cols-[.5fr_1.5fr]"><p className="text-xs font-semibold uppercase tracking-[.2em] text-teal-300">Where we work</p><div><h2 className="font-display text-4xl tracking-[-.04em] sm:text-6xl">Based in Lahore. Built for anywhere.</h2><p className="mt-6 max-w-2xl text-white/55">We work with ambitious teams across time zones through a direct, transparent, and highly collaborative process.</p></div></motion.div></section>
+      </main>
       <Footer />
     </div>
   );

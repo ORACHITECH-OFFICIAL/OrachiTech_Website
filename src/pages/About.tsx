@@ -1,239 +1,72 @@
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { Target, Eye, Heart, Award, Users, Globe, Zap, CheckCircle } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ArrowUpRight, Linkedin, Mail } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import TeamSection from '@/components/TeamSection';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import SEO from '@/components/SEO';
+import InteriorHero from '@/components/InteriorHero';
+import EditorialCTA from '@/components/EditorialCTA';
+import { usePublishedCollection } from '@/lib/cms';
 
-const values = [
-  {
-    icon: Target,
-    title: 'Innovation',
-    description: 'We embrace cutting-edge technologies and creative solutions to solve complex problems.',
-  },
-  {
-    icon: Heart,
-    title: 'Integrity',
-    description: 'We maintain the highest ethical standards in all our business dealings.',
-  },
-  {
-    icon: Users,
-    title: 'Collaboration',
-    description: 'We work together with our clients and team members to achieve shared success.',
-  },
-  {
-    icon: Zap,
-    title: 'Excellence',
-    description: 'We strive for excellence in everything we do, from code quality to client service.',
-  },
+const principles = [
+  ['01', 'Useful before impressive', 'We begin with the real decision, behavior, or operational change the product needs to create.'],
+  ['02', 'Clarity is a feature', 'Good software should reduce cognitive load, make the next action obvious, and feel calm under pressure.'],
+  ['03', 'Senior people stay close', 'The people shaping the strategy remain involved through design, engineering, and release.'],
+  ['04', 'Built to keep moving', 'We favor resilient systems, honest trade-offs, and foundations that make the next release easier.'],
 ];
 
-const milestones = [
-  { year: '2018', title: 'Company Founded', description: 'Orachi Tech was established with a vision to transform businesses through technology.' },
-  { year: '2019', title: 'First Major Client', description: 'Secured our first enterprise client and expanded our team to 15 members.' },
-  { year: '2020', title: 'Global Expansion', description: 'Opened offices in multiple countries and served clients across 20+ nations.' },
-  { year: '2021', title: 'Award Recognition', description: 'Received industry recognition for excellence in software development.' },
-  { year: '2022', title: '100+ Projects', description: 'Successfully delivered over 100 projects across various industries.' },
-  { year: '2023', title: 'AI Integration', description: 'Launched our AI-powered solutions division to meet growing market demands.' },
+const defaultLeaders = [
+  { name: 'Muneeb Shahid', role: 'CEO & Founder', bio: 'Shapes product direction and partnerships, connecting business ambition with focused digital execution.', image: '/assets/profile.png', linkedin: 'https://www.linkedin.com/in/muneebshahid6550', email: 'muneeb6550@gmail.com' },
+  { name: 'Ghulam Fareed', role: 'CTO & Director', bio: 'Leads technology strategy and delivery, with a focus on dependable systems and long-term product value.', image: '/assets/Web_Photo_Editor.jpg', linkedin: 'https://www.linkedin.com/in/ghulam-fareed-b9a900236', email: 'fareedzubair125@gmail.com' },
 ];
+
+type Leader = { title?: string; name?: string; role: string; bio: string; image: string; linkedin: string; email: string; order?: number };
 
 const About = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.1 });
-
+  const { items: leaders } = usePublishedCollection<Leader>('team', defaultLeaders);
   return (
-    <div className="min-h-screen bg-background">
-      <SEO
-        title="About ORACHITECH | Software House in Pakistan"
-        description="Learn about ORACHITECH, a Pakistan-based software house building web applications, SaaS products, mobile apps, school management systems, and business software."
-        path="/about"
-        keywords="about ORACHITECH, Orachi Tech, software house Pakistan, software company Lahore"
-      />
+    <div className="min-h-screen bg-[#f3f1eb]">
+      <SEO title="About ORACHITECH | Digital Product Studio" description="Meet ORACHITECH, an independent digital product design and software engineering studio in Lahore working with ambitious teams worldwide." path="/about" keywords="about ORACHITECH, digital product studio Pakistan, software company Lahore" />
       <Navbar />
       <WhatsAppButton />
+      <main>
+        <InteriorHero eyebrow="About Orachi Tech" title="Small enough to care. Experienced enough to lead." description="We are an independent product studio for organizations that need sharper thinking, stronger execution, and software made for the real world." imagePosition="56% center" />
 
-      {/* Hero Section */}
-      <section className="pt-32 pb-16 relative overflow-hidden">
-        <div className="absolute inset-0 hexagon-pattern opacity-5" />
-        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
-        
-        <div className="container mx-auto px-4 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center max-w-3xl mx-auto"
-          >
-            <span className="text-primary text-sm font-semibold tracking-wider uppercase mb-4 block animated-text">
-              About Us
-            </span>
-            <h1 className="text-4xl md:text-6xl font-display font-bold text-foreground mb-6">
-              Building the <span className="shimmer-text">Future of Tech</span>
-            </h1>
-            <p className="text-muted-foreground text-lg">
-              We are a team of passionate technologists dedicated to delivering innovative solutions that drive business growth.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Mission & Vision */}
-      <section className="py-16" ref={ref}>
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-8">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6 }}
-              className="glass-card p-8"
-            >
-              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-6">
-                <Target className="w-7 h-7 text-primary-foreground" />
+        <section className="px-6 py-20 lg:py-32">
+          <div className="container mx-auto grid gap-12 lg:grid-cols-[.6fr_1.4fr]">
+            <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-xs font-semibold uppercase tracking-[.2em] text-teal-700">Why we exist</motion.p>
+            <motion.div initial={{ opacity: 0, y: 38 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .25 }} transition={{ duration: .75 }}>
+              <h2 className="max-w-5xl font-display text-4xl leading-[1.06] tracking-[-.045em] sm:text-6xl">Technology is most valuable when it makes a business feel simpler, faster, and more capable.</h2>
+              <div className="mt-10 grid gap-7 border-t border-slate-950/20 pt-8 text-slate-600 sm:grid-cols-2">
+                <p className="leading-relaxed">That belief guides how we frame problems, design interactions, choose technology, and measure whether the work is actually successful.</p>
+                <p className="leading-relaxed">We collaborate directly with founders and product leaders, bringing the discipline of a mature studio without the layers that slow good work down.</p>
               </div>
-              <h3 className="text-2xl font-semibold text-foreground mb-4">Our Mission</h3>
-              <p className="text-muted-foreground">
-                To empower businesses with innovative technology solutions that drive growth, efficiency, and competitive advantage in the digital age. We are committed to delivering excellence through our expertise, creativity, and unwavering dedication to client success.
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="glass-card p-8"
-            >
-              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-6">
-                <Eye className="w-7 h-7 text-primary-foreground" />
-              </div>
-              <h3 className="text-2xl font-semibold text-foreground mb-4">Our Vision</h3>
-              <p className="text-muted-foreground">
-                To be a global leader in technology innovation, recognized for our commitment to excellence, sustainability, and positive impact on businesses and communities worldwide. We envision a future where technology seamlessly enhances every aspect of life.
-              </p>
             </motion.div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Values */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-4">
-              Our Core <span className="shimmer-text">Values</span>
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              The principles that guide everything we do
-            </p>
-          </motion.div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {values.map((value, index) => (
-              <motion.div
-                key={value.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="tech-card glass-card p-6 text-center hover:border-primary/50 transition-all duration-300"
-              >
-                <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center mx-auto mb-4">
-                  <value.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">{value.title}</h3>
-                <p className="text-muted-foreground text-sm">{value.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Timeline */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-4">
-              Our <span className="shimmer-text">Journey</span>
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Key milestones that shaped who we are today
-            </p>
-          </motion.div>
-
-          <div className="relative">
-            <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-primary to-accent hidden md:block" />
-            
-            <div className="space-y-8">
-              {milestones.map((milestone, index) => (
-                <motion.div
-                  key={milestone.year}
-                  initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className={`flex items-center gap-8 ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}
-                >
-                  <div className={`flex-1 ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
-                    <div className="glass-card p-6 inline-block">
-                      <span className="text-primary font-bold text-lg">{milestone.year}</span>
-                      <h3 className="text-foreground font-semibold text-lg mb-2">{milestone.title}</h3>
-                      <p className="text-muted-foreground text-sm">{milestone.description}</p>
-                    </div>
-                  </div>
-                  <div className="hidden md:flex w-4 h-4 rounded-full bg-primary border-4 border-background z-10" />
-                  <div className="flex-1 hidden md:block" />
-                </motion.div>
-              ))}
+        <section className="bg-slate-950 px-6 py-20 text-white lg:py-28">
+          <div className="container mx-auto">
+            <div className="grid gap-8 border-b border-white/15 pb-12 lg:grid-cols-2 lg:items-end"><div><p className="text-xs font-semibold uppercase tracking-[.2em] text-teal-300">Working principles</p><h2 className="mt-5 font-display text-4xl tracking-[-.04em] sm:text-6xl">The standards behind the work.</h2></div><p className="max-w-xl text-lg leading-relaxed text-white/55 lg:justify-self-end">A few principles keep the studio honest when projects become complex and decisions get consequential.</p></div>
+            <div className="divide-y divide-white/15">
+              {principles.map(([number, title, description], index) => <motion.article key={title} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .3 }} transition={{ delay: index * .07 }} className="group grid gap-5 py-8 md:grid-cols-[90px_.8fr_1fr] md:py-10"><span className="font-mono text-xs text-teal-300">{number}</span><h3 className="font-display text-2xl transition-transform group-hover:translate-x-2 sm:text-3xl">{title}</h3><p className="max-w-xl leading-relaxed text-white/55">{description}</p></motion.article>)}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Stats */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="glass-card p-8">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {[
-                { icon: Award, value: '100+', label: 'Projects Completed' },
-                { icon: Users, value: '50+', label: 'Team Members' },
-                { icon: Globe, value: '20+', label: 'Countries Served' },
-                { icon: CheckCircle, value: '99%', label: 'Client Satisfaction' },
-              ].map((stat, index) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="text-center"
-                >
-                  <stat.icon className="w-8 h-8 text-primary mx-auto mb-3" />
-                  <div className="text-3xl font-bold gradient-text mb-1">{stat.value}</div>
-                  <div className="text-muted-foreground text-sm">{stat.label}</div>
-                </motion.div>
-              ))}
+        <section className="px-6 py-20 lg:py-28">
+          <div className="container mx-auto">
+            <div className="grid gap-8 border-b border-slate-950/20 pb-12 lg:grid-cols-2"><div><p className="text-xs font-semibold uppercase tracking-[.2em] text-teal-700">Leadership</p><h2 className="mt-5 font-display text-4xl tracking-[-.04em] sm:text-6xl">Accountable from the top.</h2></div><p className="max-w-xl self-end text-slate-600 lg:justify-self-end">A senior-led studio means faster decisions, direct communication, and less lost in translation.</p></div>
+            <div className="grid gap-px bg-slate-950/15 md:grid-cols-2">
+              {leaders.map((leader, index) => <motion.article key={leader.title || leader.name} initial={{ opacity: 0, y: 38 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * .12 }} className="group grid bg-[#f3f1eb] sm:grid-cols-[210px_1fr]">
+                <div className="overflow-hidden"><img src={leader.image} alt={leader.title || leader.name || ''} className="h-full min-h-72 w-full object-cover object-top grayscale transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0" /></div>
+                <div className="flex flex-col justify-between p-7"><div><p className="text-xs font-semibold uppercase tracking-[.16em] text-teal-700">{leader.role}</p><h3 className="mt-3 font-display text-3xl">{leader.title || leader.name}</h3><p className="mt-5 leading-relaxed text-slate-600">{leader.bio}</p></div><div className="mt-8 flex gap-3"><a href={leader.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="rounded-full border border-slate-950/20 p-3 transition-colors hover:bg-slate-950 hover:text-white"><Linkedin className="h-4 w-4" /></a><a href={`mailto:${leader.email}`} aria-label="Email" className="rounded-full border border-slate-950/20 p-3 transition-colors hover:bg-slate-950 hover:text-white"><Mail className="h-4 w-4" /></a><ArrowUpRight className="ml-auto h-5 w-5 text-slate-400 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" /></div></div>
+              </motion.article>)}
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Team Section */}
-      <TeamSection />
-
+        </section>
+        <EditorialCTA eyebrow="A studio, not a vendor" title="Work with people who stay close to the problem." />
+      </main>
       <Footer />
     </div>
   );

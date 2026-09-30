@@ -69,3 +69,25 @@ Yes, you can!
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+# ORACHITECH website and CMS
+
+The website includes a Firebase-backed content management system at `/admin`.
+
+## CMS setup
+
+1. In the Firebase console for `orachi-tech-d5e5a`, enable **Email/Password** under Authentication → Sign-in method.
+2. Add the first editor under Authentication → Users. There is intentionally no public sign-up screen.
+3. Enable Firestore Database and Firebase Storage.
+4. Deploy the included security configuration with `firebase deploy --only firestore:rules,storage`.
+5. Run `npm run dev`, open `/admin`, and sign in with the editor account.
+
+Editors can manage blog posts, case studies, services, team members, reusable page content, global contact settings, and uploaded images. Entries remain private while in draft and appear on the public site when published. Existing hard-coded website content remains as a fallback until its CMS collection has published entries.
+
+## Development
+
+```sh
+npm install
+npm run dev
+```
+
+Create a production build with `npm run build`.

@@ -1,8 +1,9 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Linkedin, Mail } from 'lucide-react';
+import { usePublishedCollection } from '@/lib/cms';
 
-const executives = [
+const defaultExecutives = [
   {
     name: 'Muneeb Shahid',
     role: 'CEO & Founder',
@@ -21,9 +22,12 @@ const executives = [
   },
 ];
 
+type TeamMember = { title?: string; name?: string; role: string; bio: string; image: string; linkedin: string; email: string; order?: number };
+
 const TeamSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
+  const { items: executives } = usePublishedCollection<TeamMember>('team', defaultExecutives);
 
   return (
     <section id="team" className="py-24 relative overflow-hidden">
@@ -55,7 +59,7 @@ const TeamSection = () => {
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {executives.map((exec, index) => (
             <motion.div
-              key={exec.name}
+              key={exec.title || exec.name}
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: index * 0.15 }}
@@ -72,7 +76,7 @@ const TeamSection = () => {
                   <div className="absolute inset-0 rounded-full border-2 border-transparent group-hover:border-primary/50 transition-all duration-300" />
                   <img
                     src={exec.image}
-                    alt={exec.name}
+                    alt={exec.title || exec.name}
                     className="relative w-full h-full object-cover object-top rounded-full border-3 border-dark-600 group-hover:border-primary transition-all duration-500 group-hover:scale-105"
                   />
                   {/* Floating badge */}
@@ -87,7 +91,7 @@ const TeamSection = () => {
 
                 {/* Content */}
                 <h3 className="text-foreground font-display font-bold text-xl mb-1 group-hover:text-primary transition-colors duration-300">
-                  {exec.name}
+                  {exec.title || exec.name}
                 </h3>
                 <p className="text-primary text-sm font-medium mb-3">{exec.role}</p>
                 <p className="text-muted-foreground text-sm mb-6 leading-relaxed">
@@ -123,4 +127,3 @@ const TeamSection = () => {
 };
 
 export default TeamSection;
-

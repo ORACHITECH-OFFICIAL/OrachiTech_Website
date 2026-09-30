@@ -1,5 +1,8 @@
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import { getAnalytics, isSupported } from "firebase/analytics";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBQ-ijNWPjM0N2b4sfnFcXwe32a3aRBPXw",
@@ -13,6 +16,12 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const storage = getStorage(app);
 
-export { app, analytics };
+// Analytics is optional and must not prevent the CMS from rendering in browsers
+// that block IndexedDB/cookies (or in test environments).
+const analytics = isSupported().then((supported) => (supported ? getAnalytics(app) : null));
+
+export { app, analytics, auth, db, storage };

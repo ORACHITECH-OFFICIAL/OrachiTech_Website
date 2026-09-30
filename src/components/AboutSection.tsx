@@ -1,114 +1,82 @@
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Target, Eye, Zap } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+
+const principles = [
+  ['01', 'Think before building', 'We clarify the opportunity, users, and commercial goal before a single feature enters the roadmap.'],
+  ['02', 'Design the whole system', 'Product, brand, technology, and operations are considered together—not handed off in isolation.'],
+  ['03', 'Stay for the outcome', 'Launch is a milestone, not the finish line. We learn from real use and keep improving what matters.'],
+];
 
 const AboutSection = () => {
-  const ref = useRef(null);
+  const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
-  const cards = [
-    {
-      icon: Target,
-      title: 'Our Mission',
-      description:
-        'To deliver innovative technology solutions that drive business growth and digital transformation for our clients worldwide.',
-    },
-    {
-      icon: Eye,
-      title: 'Our Vision',
-      description:
-        'To become the leading technology partner for businesses seeking to harness the power of cutting-edge digital solutions.',
-    },
-    {
-      icon: Zap,
-      title: 'Our Values',
-      description:
-        'Innovation, integrity, and excellence guide everything we do. We believe in building lasting partnerships through quality and trust.',
-    },
-  ];
-
   return (
-    <section id="about" className="py-24 relative overflow-hidden" ref={ref}>
-      {/* Background */}
-      <div className="absolute inset-0 bg-dark-elevated/50" />
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl" />
+    <section id="about" className="relative bg-[#f4f3ee] py-24 text-slate-950 lg:py-36" ref={ref}>
+      <div className="container mx-auto px-6">
+        <div className="grid gap-10 border-b border-slate-900/15 pb-16 lg:grid-cols-[0.42fr_1fr] lg:gap-20 lg:pb-24">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+          >
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-teal-700">About Orachi</p>
+            <p className="mt-5 max-w-xs text-sm leading-relaxed text-slate-600">
+              An independent digital product studio working with founders and established teams across strategy, design, and engineering.
+            </p>
+          </motion.div>
 
-      <div className="container mx-auto px-6 relative z-10">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <span className="text-primary font-medium text-sm uppercase tracking-wider animated-text">
-            About Us
-          </span>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">
-            Who We Are at{' '}
-            <span className="shimmer-text">Orachi Tech</span>
-          </h2>
-          <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
-            We are a passionate team of developers, designers, and innovators
-            dedicated to creating exceptional digital experiences that make a
-            difference.
-          </p>
-        </motion.div>
-
-        {/* Cards Grid */}
-        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
-          {cards.map((card, index) => (
-            <motion.div
-              key={card.title}
-              initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="tech-card glass-card rounded-2xl p-8 group hover:border-primary/50 transition-all duration-500"
-            >
-              <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors duration-300">
-                <card.icon className="w-7 h-7 text-primary" />
-              </div>
-              <h3 className="font-display text-xl font-semibold mb-4">
-                {card.title}
-              </h3>
-              <p className="text-muted-foreground leading-relaxed">
-                {card.description}
+          <motion.div
+            initial={{ opacity: 0, y: 32 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <h2 className="font-display text-4xl font-medium leading-[1.02] tracking-[-0.045em] sm:text-5xl lg:text-7xl">
+              We make complex ideas feel clear, useful, and inevitable.
+            </h2>
+            <div className="mt-10 grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
+              <p className="max-w-2xl text-lg leading-relaxed text-slate-600">
+                Our work begins with the hard questions: what should exist, why it matters, and what must be true for it to succeed. The result is software with a point of view—beautiful enough to earn attention and robust enough to earn trust.
               </p>
-            </motion.div>
+              <Link to="/about" className="group inline-flex items-center gap-2 text-sm font-semibold text-slate-950">
+                More about the studio
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+
+        <div className="grid lg:grid-cols-3">
+          {principles.map(([number, title, description], index) => (
+            <motion.article
+              key={number}
+              initial={{ opacity: 0, y: 28 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.18 + index * 0.1 }}
+              className="border-b border-slate-900/15 py-9 lg:border-b-0 lg:border-r lg:px-9 lg:py-12 first:lg:pl-0 last:lg:border-r-0 last:lg:pr-0"
+            >
+              <span className="font-mono text-xs text-teal-700">{number}</span>
+              <h3 className="mt-8 font-display text-2xl font-medium tracking-[-0.025em]">{title}</h3>
+              <p className="mt-4 max-w-sm leading-relaxed text-slate-600">{description}</p>
+            </motion.article>
           ))}
         </div>
 
-        {/* Stats Bar */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-16 glass-card rounded-2xl p-8 lg:p-12"
-        >
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-            {[
-              { value: '2019', label: 'Founded' },
-              { value: '25+', label: 'Team Members' },
-              { value: '15+', label: 'Countries Served' },
-              { value: '98%', label: 'Client Satisfaction' },
-            ].map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
-              >
-                <div className="text-3xl lg:text-4xl font-display font-bold gradient-text">
-                  {stat.value}
-                </div>
-                <div className="text-muted-foreground text-sm mt-2">
-                  {stat.label}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+        <div className="mt-16 grid grid-cols-2 gap-y-8 border-t border-slate-900/15 pt-10 md:grid-cols-4">
+          {[
+            ['100+', 'Products and platforms'],
+            ['15+', 'Markets reached'],
+            ['5+', 'Years of delivery'],
+            ['98%', 'Client satisfaction'],
+          ].map(([value, label]) => (
+            <div key={label}>
+              <p className="font-display text-3xl font-medium tracking-tight lg:text-4xl">{value}</p>
+              <p className="mt-2 text-xs uppercase tracking-[0.14em] text-slate-500">{label}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

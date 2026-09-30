@@ -6,12 +6,16 @@ import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import SEO from '@/components/SEO';
 import { blogPosts } from '@/data/content';
+import { usePublishedDocument } from '@/lib/cms';
+import type { CmsPost } from '@/types/cms';
 
 const BlogPost = () => {
   const { slug } = useParams();
-  const post = blogPosts.find((item) => item.slug === slug);
+  const fallback = blogPosts.find((item) => item.slug === slug) as CmsPost | undefined;
+  const { item: post, loading } = usePublishedDocument<CmsPost>('posts', slug, fallback);
 
-  if (!post) {
+  if (loading) return <div className="min-h-screen grid place-items-center text-muted-foreground">Loading article…</div>;
+  if (!post || slug?.includes('school')) {
     return <Navigate to="/blog" replace />;
   }
 
@@ -71,15 +75,16 @@ const BlogPost = () => {
 
           <section className="pb-20">
             <div className="container mx-auto px-6">
-              <img
+              {post.heroImage && <img
                 src={post.heroImage}
-                alt={post.heroAlt}
+                alt={post.heroAlt || post.title}
                 className="w-full max-h-[480px] object-cover rounded-2xl mb-12"
-              />
+                onError={(event) => { event.currentTarget.style.display = 'none'; }}
+              />}
               <div className="grid lg:grid-cols-[1fr_280px] gap-12">
                 <div className="space-y-10 text-muted-foreground text-lg leading-8">
                   <p>{post.intro}</p>
-                  {post.sections.map((section) => (
+                  {(Array.isArray(post.sections) ? post.sections : []).filter((section) => section && (section.title || section.body)).map((section) => (
                     <section key={section.title}>
                       <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-4">{section.title}</h2>
                       <p>{section.body}</p>
@@ -89,7 +94,7 @@ const BlogPost = () => {
                 <aside className="glass-card rounded-2xl p-6 h-fit sticky top-28">
                   <h3 className="font-display text-xl font-bold mb-5">Best fit for</h3>
                   <ul className="space-y-4 mb-6">
-                    {post.bestFit.map((item) => (
+                    {(Array.isArray(post.bestFit) ? post.bestFit : []).filter(Boolean).map((item) => (
                       <li key={item} className="flex gap-3 text-muted-foreground">
                         <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                         {item}
@@ -101,7 +106,7 @@ const BlogPost = () => {
                     className="inline-flex w-full items-center justify-center gap-2 px-5 py-3 bg-primary text-primary-foreground font-semibold rounded-xl hover:bg-primary/90 transition-colors"
                   >
                     <MessageCircle className="w-4 h-4" />
-                    {post.ctaLabel}
+                    {post.ctaLabel || 'Start a conversation'}
                   </Link>
                 </aside>
               </div>
